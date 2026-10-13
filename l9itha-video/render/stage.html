@@ -79,6 +79,16 @@
   .chip{position:absolute;border-radius:18px;background:var(--editor);color:#E6EAF7;box-shadow:0 20px 50px rgba(10,15,40,.35);font:500 30px "DejaVu Sans Mono",monospace;padding:20px 28px}
   .chip .lbl{font:700 15px "Inter";letter-spacing:.14em;text-transform:uppercase;color:#8d98bd;display:block;margin-bottom:8px}
 
+  .edc{position:absolute;border-radius:18px;background:var(--editor);color:#E6EAF7;box-shadow:0 24px 60px rgba(10,15,40,.38);border:3px solid transparent;overflow:hidden}
+  .edc .hd{display:flex;align-items:center;gap:8px;padding:12px 18px;background:#0c1328;font:700 15px "Inter";letter-spacing:.14em;text-transform:uppercase;color:#8d98bd}
+  .edc .hd i{width:10px;height:10px;border-radius:50%;display:block}
+  .edc pre{padding:16px 22px;font:500 24px/1.55 "DejaVu Sans Mono",monospace;white-space:pre;min-height:56px}
+  .edc .caret{height:26px;width:12px}
+  .edc .out{border-top:1px solid rgba(255,255,255,.08);padding:12px 22px 16px;font:500 24px/1.5 "DejaVu Sans Mono",monospace;color:#B9F3D2;min-height:30px}
+  .edc .out b{display:block;font:700 13px "Inter";letter-spacing:.14em;text-transform:uppercase;color:#6c7899;margin-bottom:4px}
+  .edc .badge{position:absolute;right:16px;top:8px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 18px "Inter";color:#fff}
+  #s4-view .ph,#s3-cards .ph{justify-content:flex-start;padding-top:70px}
+  #s3-cards .ph{padding-top:30px}
   .toast{position:absolute;display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:18px 26px;box-shadow:0 20px 50px rgba(19,34,74,.2);font:700 28px "Inter";color:var(--navy)}
   .toast svg{width:38px;height:38px}
 
@@ -148,6 +158,10 @@
           <span class="tag" style="background:var(--green)">Capture réelle · C3-01</span>
           <div class="ttl" style="font-size:32px">Activités Junior : frappe, quiz, réflexes</div>
         </div>
+        <div class="edc" id="s3-jc" style="left:70px;right:70px;bottom:60px">
+          <div class="hd"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#06d6a0"></i></div><pre id="s3-jcode"></pre>
+          <div class="out"><span id="s3-jout">Salut !</span></div>
+        </div>
       </div>
       <div class="card" id="s3-p" style="left:1000px;top:160px;width:720px;height:620px">
         <div style="height:12px;background:var(--blue)"></div>
@@ -158,6 +172,10 @@
         <div class="ph cap" style="left:40px;right:40px;top:150px;bottom:40px;border-color:rgba(47,111,235,.6);background:repeating-linear-gradient(135deg, rgba(47,111,235,.07) 0 22px, transparent 22px 44px),#F3F7FF">
           <span class="tag" style="background:var(--blue)">Capture réelle · C3-02</span>
           <div class="ttl" style="font-size:32px">Activités Pro : programmes à compléter ou à réparer</div>
+        </div>
+        <div class="edc" id="s3-pc" style="left:70px;right:70px;bottom:60px">
+          <div class="hd"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#06d6a0"></i></div><pre id="s3-pcode"></pre>
+          <div class="out"><span id="s3-pout">49</span></div>
         </div>
       </div>
     </div>
@@ -176,9 +194,17 @@
       <div class="view" id="s4-view"></div>
     </div>
     <div class="steps" id="s4-steps" style="left:1420px;top:300px"></div>
-    <div class="chip" id="s4-chip" style="left:620px;top:690px;width:560px">
-      <span class="lbl">Code</span><span class="f">print</span>(<span class="s">"Bonjour !"</span>)
-      <span class="lbl" style="margin-top:16px">Sortie</span><span id="s4-out">Bonjour !</span>
+    <div class="edc" id="s4-chip" style="left:640px;top:600px;width:600px">
+      <div class="hd"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#06d6a0"></i><span style="margin-left:8px">main.py</span></div>
+      <pre id="s4-code"></pre>
+      <div class="out"><b>Console</b><span id="s4-out">Bonjour !</span></div>
+    </div>
+    <div class="edc" id="s4-chip2" style="left:600px;top:560px;width:640px">
+      <div class="hd"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#06d6a0"></i><span style="margin-left:8px">main.py</span></div>
+      <div class="badge" id="s4-bad" style="background:#E5484D">!</div>
+      <div class="badge" id="s4-ok" style="background:#1F9D63">✓</div>
+      <pre id="s4-code2"></pre>
+      <div class="out"><b>Console</b><span id="s4-o1" style="display:block">Je progresse !</span><span id="s4-o2" style="display:block">Je progresse !</span><span id="s4-o3" style="display:block">Je progresse !</span></div>
     </div>
     <div class="toast" id="s4-save" style="left:640px;top:880px">
       <svg viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4.5 4.5 0 0 1-.5-9 6 6 0 0 1 11.6 1.5A3.75 3.75 0 0 1 17.5 18Z"/><path d="m9.5 13 2 2 3.5-3.5"/></svg>
@@ -321,11 +347,21 @@ function hl(src){
   }
   return out.join("");
 }
-function typer(el, src, t0, t1){
+function typer(el, src, t0, t1, keys){
   el = $(el); let last = -1;
+  keys = keys || [[t0, 0], [t1, src.length]];
+  const count = t => {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) {
+      const [ta, na] = keys[i - 1], [tb, nb] = keys[i];
+      return Math.round(na + (nb - na) * (t - ta) / Math.max(1e-6, tb - ta));
+    }
+    return keys[keys.length - 1][1];
+  };
   hook(t => {
-    const n = Math.max(0, Math.min(src.length, Math.round((t - t0) / (t1 - t0) * src.length)));
-    const blink = t > t1 && Math.floor(t * 2) % 2;
+    const n = Math.max(0, Math.min(src.length, count(t)));
+    const typing = keys.some((k, i) => i && t > keys[i - 1][0] && t < k[0] && k[1] !== keys[i - 1][1]);
+    const blink = !typing && Math.floor(t * 2) % 2;
     const key = n + (blink ? "b" : "");
     if (key === last) return; last = key;
     el.innerHTML = hl(src.slice(0, n)) + (blink ? "" : '<span class="caret"></span>');
@@ -415,6 +451,10 @@ kenburns("#s2-br", 12.5, 18.4, 1, 1.05);
 inUp("#s3-eb", 18.2, .6, 20);
 tw("#s3-j", [{opacity:0, transform:"translateX(-120px) rotate(-3deg)"},{opacity:1, transform:"none"}], 18.4, .8, E.back);
 tw("#s3-p", [{opacity:0, transform:"translateX(120px) rotate(3deg)"},{opacity:1, transform:"none"}], 19.4, .8, E.back);
+typer("#s3-jcode", 'print("Salut !")', 20.0, 20.9);
+tw("#s3-jout", [{opacity:0},{opacity:1}], 21.2, .2);
+typer("#s3-pcode", 'def carre(n):\n    return n * n\nprint(carre(7))', 21.0, 22.9);
+tw("#s3-pout", [{opacity:0},{opacity:1}], 23.2, .2);
 tw("#s3-cards", [{transform:"none"},{transform:"translateY(-60px) scale(.86)"}], 24.0, .8, E.inout);
 fadeOut("#s3-eb", 24.0);
 tw("#s3-rail", [{opacity:0},{opacity:1}], 24.2, .4);
@@ -441,9 +481,18 @@ sequence("#s4-view", [
   [44.6, "C4-08", "Reprise du travail sauvegardé", "Le code retrouvé à la séance suivante."],
 ], 48.5);
 steps("#s4-steps", [[30.6, "J'essaie"], [34.4, "Je comprends"], [38.6, "Je corrige"], [42.6, "Je progresse"]]);
-tw("#s4-chip", [{opacity:0, transform:"translateY(40px) scale(.95)"},{opacity:1, transform:"none"}], 32.1, .5, E.back);
+tw("#s4-chip", [{opacity:0, transform:"translateY(40px) scale(.95)"},{opacity:1, transform:"none"}], 31.8, .5, E.back);
+typer("#s4-code", 'print("Bonjour !")', 32.1, 33.2);
 tw("#s4-out", [{opacity:0},{opacity:1}], 33.7, .2);
-tw("#s4-chip", [{opacity:1},{opacity:0}], 35.6, .4);
+tw("#s4-chip", [{opacity:1},{opacity:0}], 35.8, .4);
+const FIX = 'for i in range(3):\n    print("Je progresse !")';
+tw("#s4-chip2", [{opacity:0, transform:"translateY(40px) scale(.95)"},{opacity:1, transform:"none"}], 36.9, .5, E.back);
+typer("#s4-code2", FIX, 0, 0, [[37.2, 0], [37.85, 17], [38.6, 17], [38.75, 18], [39.5, FIX.length]]);
+tw("#s4-chip2", [{borderColor:"transparent"},{borderColor:"#E5484D"}], 37.9, .2);
+tw("#s4-chip2", [{borderColor:"#E5484D"},{borderColor:"#1F9D63"}], 39.8, .3);
+pop("#s4-bad", 37.95, .4); fadeOut("#s4-bad", 38.7, .2); pop("#s4-ok", 39.85, .5);
+["#s4-o1", "#s4-o2", "#s4-o3"].forEach((o, i) => tw(o, [{opacity:0},{opacity:1}], 39.9 + i * .18, .15));
+tw("#s4-chip2", [{opacity:1},{opacity:0}], 42.0, .4);
 tw("#s4-save", [{opacity:0, transform:"translateY(40px)"},{opacity:1, transform:"none"}], 44.9, .5, E.back);
 kenburns("#s4-br", 30, 48.5, 1, 1.03);
 

@@ -1,110 +1,110 @@
 1
-00:00:00,600 --> 00:00:03,600
+00:00:00,550 --> 00:00:02,190
 What if a few lines of code
 
 2
-00:00:03,600 --> 00:00:07,400
+00:00:02,210 --> 00:00:04,720
 became the start of a new passion?
 
 3
-00:00:08,600 --> 00:00:11,600
+00:00:08,550 --> 00:00:11,690
 With L9ITHA.Club, students discover
 Python programming
 
 4
-00:00:11,600 --> 00:00:14,600
+00:00:11,710 --> 00:00:15,290
 in a structured computer club,
 with step-by-step activities
 
 5
-00:00:14,600 --> 00:00:17,600
+00:00:15,300 --> 00:00:17,120
 and the support of their teacher.
 
 6
-00:00:18,500 --> 00:00:21,800
+00:00:18,450 --> 00:00:20,390
 Two tracks, Junior and Pro,
 
 7
-00:00:21,800 --> 00:00:24,800
+00:00:20,410 --> 00:00:23,370
 offer a progression suited to each age.
 
 8
-00:00:24,800 --> 00:00:27,400
+00:00:23,390 --> 00:00:26,030
 We warm up, practise with guidance,
 
 9
-00:00:27,400 --> 00:00:29,800
+00:00:26,050 --> 00:00:28,640
 practise on our own, then take on a challenge.
 
 10
-00:00:30,500 --> 00:00:34,000
+00:00:30,450 --> 00:00:34,280
 Students write their code, run it
 and watch the result.
 
 11
-00:00:34,000 --> 00:00:38,600
+00:00:34,300 --> 00:00:38,890
 Hints and messages in French
 help them understand their mistakes.
 
 12
-00:00:38,600 --> 00:00:42,600
+00:00:38,910 --> 00:00:41,760
 They fix it, try again and move forward.
 
 13
-00:00:42,600 --> 00:00:47,400
+00:00:41,780 --> 00:00:45,400
 Their work is saved
 for the next session.
 
 14
-00:00:48,500 --> 00:00:52,000
+00:00:48,450 --> 00:00:50,990
 For parents, it's a supervised activity
 
 15
-00:00:52,000 --> 00:00:55,600
+00:00:51,020 --> 00:00:54,280
 to build logical thinking,
 encourage creativity
 
 16
-00:00:55,600 --> 00:00:59,600
+00:00:54,300 --> 00:00:56,890
 and learn to persevere when facing a problem.
 
 17
-00:01:00,500 --> 00:01:04,400
+00:01:00,450 --> 00:01:04,380
 For schools, the platform brings together
 the club's organisation,
 
 18
-00:01:04,400 --> 00:01:07,400
+00:01:04,390 --> 00:01:06,610
 the course materials and the exercises.
 
 19
-00:01:07,400 --> 00:01:11,600
+00:01:06,620 --> 00:01:09,760
 The teacher presents the session,
 opens the activities
 
 20
-00:01:11,600 --> 00:01:15,600
+00:01:09,780 --> 00:01:14,450
 and sees attendance, progress
 and results for every student.
 
 21
-00:01:16,400 --> 00:01:19,600
+00:01:16,350 --> 00:01:18,850
 From first attempts to coding challenges,
 
 22
-00:01:19,600 --> 00:01:21,800
+00:01:18,870 --> 00:01:21,580
 every session invites students
 to understand code
 
 23
-00:01:21,800 --> 00:01:23,800
+00:01:21,600 --> 00:01:23,390
 and to bring their ideas to life.
 
 24
-00:01:24,400 --> 00:01:26,400
+00:01:24,350 --> 00:01:25,540
 Discover L9ITHA.Club.
 
 25
-00:01:26,400 --> 00:01:29,600
+00:01:25,560 --> 00:01:29,180
 To join the club or request
 a demo, get in touch.

@@ -163,6 +163,13 @@ def tick():
 t = .5
 while t < 3.9:
     place(sfx, key(), t, rng.uniform(.6, 1.0), pan=rng.uniform(-.3, .3)); t += rng.uniform(.045, .11)
+# autres passages de code tapé (scènes 3 et 4)
+for a_, b_ in ((20.0, 20.9), (21.0, 22.9), (32.1, 33.2), (37.2, 37.85), (38.6, 39.5)):
+    t = a_
+    while t < b_:
+        place(sfx, key(), t, rng.uniform(.5, .85), pan=rng.uniform(-.3, .3)); t += rng.uniform(.05, .1)
+place(sfx, chime((79,), 0, .7), 21.2, .3); place(sfx, chime((83,), 0, .7), 23.2, .3)
+place(sfx, soft_err(), 37.9, .6)
 place(sfx, chime((72, 79, 84), .12, 1.6), 4.0, .6)          # dessin Turtle
 for i, tt in enumerate((5.1, 5.55, 6.0)): place(sfx, pop(520 + i * 120), tt, .5)
 for T in (8, 18, 48, 60, 84): place(sfx, whoosh(.85), T - .5, .55)

@@ -71,9 +71,21 @@ Filles et garçons de 11 à 17 ans, établissement marocain. **Autorisations
 parentales de droit à l'image indispensables** pour les mineurs filmés.
 
 ### Voix off
-Déposer `assets/voix/voix_off.wav`, un fichier unique de 90 s calé sur la
-timeline. Une prise libre fonctionne aussi : je la découpe et je la cale.
-Lire chaque ligne dans sa fenêtre de temps :
+**Actuelle : voix masculine française provisoire**, générée localement
+(`audio/make_voice.py`, modèle « tom » de Piper). Le nom se prononce « Lqitha
+Club ». Les sous-titres sont recalés automatiquement sur les pauses de la voix
+(`render/subs_timed.json`).
+
+Pour une **voix d'homme marocain**, deux options :
+1. Enregistrer le texte ci-dessous (toi ou un comédien marocain), puis le
+   déposer en `assets/voix/voix_off.wav` et relancer `./build.sh`.
+2. Cloner la voix de l'échantillon fourni avec Higgsfield (Seed Audio). Il
+   faut autoriser `upload.higgsfield.ai` dans le réseau de l'environnement et
+   disposer d'au moins 8,1 crédits pour les 90 s.
+
+Texte de lecture :
+Lire chaque ligne dans sa fenêtre de temps (une prise libre fonctionne aussi :
+elle sera découpée et calée) :
 
 | Fenêtre | Texte |
 |---|---|
@@ -98,6 +110,11 @@ YouTube Audio Library), positive, autour de 100 BPM.
 - Le code affiché à 0–4 s produit exactement le dessin animé ensuite (36
   segments de 220 px, rotation de 170°, couleurs nommées de Turtle : indigo,
   green, royalblue, orange).
-- `print("Bonjour !")` → `Bonjour !`
+- Code tapé à l'écran (habillage animé, distinct de l'interface réelle) :
+  - Junior : `print("Salut !")` → `Salut !`
+  - Pro : `def carre(n): return n * n` puis `print(carre(7))` → `49`
+  - Atelier : `print("Bonjour !")` → `Bonjour !`
+  - Correction : `for i in range(3)` sans « : » (cadre rouge, sans message
+    inventé), ajout du « : », puis 3 × `Je progresse !`
 - Aucun témoignage, aucune statistique, aucun partenaire, aucun espace parent,
   aucun terme technique (Docker, API, Judge0, Pyodide).
