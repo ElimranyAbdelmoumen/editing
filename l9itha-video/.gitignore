@@ -4,3 +4,4 @@ frames/
 node_modules/
 assets/plans/*.mp4
 *.part
+__pycache__/
