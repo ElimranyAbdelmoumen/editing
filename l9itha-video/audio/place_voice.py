@@ -10,7 +10,7 @@ Usage : python3 audio/place_voice.py
 """
 import glob, os, subprocess, sys
 import numpy as np
-from voice_layout import ROOT, DUR, cues, scene_subs, trim, retime, write
+from voice_layout import ROOT, DUR, cues, scene_subs, trim, tighten, retime, write
 
 SR = 44100
 SCENES, SUBS = cues()
@@ -33,14 +33,17 @@ for sc in SCENES:
     files = [f for f in glob.glob(os.path.join(ROOT, f"assets/voix/scenes/scene_{sc['id']}*"))
              if os.path.basename(f).split(".")[0].split("_")[1] == str(sc["id"])]
     if not files: missing.append(sc["id"]); continue
-    window = end - start
-    takes = sorted(((trim(load(f), SR), f) for f in files), key=lambda c: len(c[0]))
+    # la prise peut déborder dans le blanc avant la scène suivante (0,4 s gardées avant elle)
+    nxt = [scene_subs(o, SUBS) for o in SCENES if o["t0"] >= sc["t1"]]
+    nxt = [n[2] for n in nxt if n]
+    window = (nxt[0] if nxt else DUR) - .4 - start
+    takes = sorted(((tighten(trim(load(f), SR), SR), f) for f in files), key=lambda c: len(c[0]))
     fit = [c for c in takes if len(c[0]) / SR <= window * 1.15]
     x, f = fit[-1] if fit else takes[0]
     tempo = 1.0
     if len(x) / SR > window:
         tempo = min(1.15, len(x) / SR / window)
-        x = trim(load(f, tempo), SR)
+        x = tighten(trim(load(f, tempo), SR), SR)
     n = int(.015 * SR); x = x.copy(); x[:n] *= np.linspace(0, 1, n); x[-n:] *= np.linspace(1, 0, n)  # pas de clic aux raccords
     d = len(x) / SR
     flag = "  ⚠ déborde de la fenêtre" if d > window + .05 else ""
@@ -50,5 +53,7 @@ for sc in SCENES:
 
 if missing:
     sys.exit(f"Prises manquantes pour les scènes {missing} dans assets/voix/scenes/")
+for a, b in zip(timed, timed[1:]):  # pas de chevauchement entre sous-titres
+    if a and b and a[1] > b[0] - .02: a[1] = round(b[0] - .02, 2)
 write(track, SR, timed)
 print("ok")

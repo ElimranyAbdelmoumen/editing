@@ -29,6 +29,25 @@ def trim(x, sr):
     return x[max(0, i - int(.03 * sr)): j + int(.08 * sr)]
 
 
+def tighten(x, sr, keep=.35):
+    """Raccourcit les silences internes à `keep` secondes (débit fluide, sans accélérer la voix)."""
+    hop = int(.01 * sr)
+    e = np.array([np.sqrt(np.mean(x[k:k + hop] ** 2)) for k in range(0, len(x) - hop, hop)])
+    quiet = e < max(.006, e.max() * .03)
+    out, k, last = [], 0, 0
+    while k < len(quiet):
+        if quiet[k]:
+            j = k
+            while j < len(quiet) and quiet[j]: j += 1
+            if (j - k) * .01 > keep and k > 0 and j < len(quiet):
+                h = int(keep / 2 * sr)
+                out.append(x[last:k * hop + h]); last = j * hop - h
+            k = j
+        else: k += 1
+    out.append(x[last:])
+    return np.concatenate(out)
+
+
 def pauses(x, sr, min_len=.12):
     """Milieux des silences (en s) dans x."""
     hop = int(.01 * sr)
