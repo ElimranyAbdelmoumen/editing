@@ -1,18 +1,28 @@
-# Fichiers générés sur Higgsfield (voix clonée « Voix Abdelmoumen – L9ITHA », Seed Audio ; plans Kling 3.0 Pro).
-# build.sh télécharge ceux qui manquent. Format : destination<TAB>URL
-assets/voix/scenes/scene_1.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_936bd658-4fe2-4c54-bcd5-73f7e53eb9c7.wav
-assets/voix/scenes/scene_2.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_6bbc52d9-2edb-4a6b-ae4e-4a25d178b288.wav
-assets/voix/scenes/scene_2_rapide.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111232_2d42c60d-45c7-48ba-87e4-a9d4100b5d39.wav
-assets/voix/scenes/scene_3.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_8c765436-8b0b-4720-ac65-7f693accc3e9.wav
-assets/voix/scenes/scene_4.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_5a0aaeff-4742-47a7-827b-bb183c00ec13.wav
-assets/voix/scenes/scene_4_rapide.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111231_1b78dbf6-b0af-462a-95a6-190d49c828ad.wav
-assets/voix/scenes/scene_5.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_88e54c4e-613f-44f5-84f3-0ea6d74b0c30.wav
-assets/voix/scenes/scene_6.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_dc3d9fb6-9dbe-4892-93dd-ebe0e65c91d6.wav
-assets/voix/scenes/scene_7.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110957_50f7b685-e700-4786-85a5-e695583ccd90.wav
-assets/voix/scenes/scene_7_rapide.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111433_a415cffb-efb0-4dd2-a5cc-8f4abce6be35.wav
-assets/voix/scenes/scene_8.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_48198226-c95e-4d50-9e90-324af7c3c405.wav
-assets/voix/scenes/scene_8_rapide.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111432_0e693ea6-58e3-48c9-8be4-bd887ca10833.wav
+# Fichiers générés sur Higgsfield. build.sh télécharge ceux qui manquent. Format : destination<TAB>URL
+# Voix off : voix « Julian » (ElevenLabs, via Higgsfield), une prise par scène.
+assets/voix/scenes/scene_1.mp3	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_130046_1cc9f909-1db4-4275-ba15-bf5318d9e43c.mp3
+assets/voix/scenes/scene_2.mp3	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_130047_88a9bad2-3d26-45ee-b2a4-4cb8604adbb9.mp3
+assets/voix/scenes/scene_3.mp3	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_130047_ecc52ac1-c407-4bfe-8b66-b1650fafd7d3.mp3
+assets/voix/scenes/scene_4.mp3	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_130048_8a0eea5a-446b-453a-8e2c-821c8fa85e20.mp3
+assets/voix/scenes/scene_5.mp3	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_130046_9c071473-e919-4a4b-b067-cc685c1bc558.mp3
+assets/voix/scenes/scene_6.mp3	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_130047_a1fbccba-e03b-47dc-9847-71ee3ba9818f.mp3
+assets/voix/scenes/scene_7.mp3	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_130048_35997da2-4cc0-444e-bf46-143ed0ef4114.mp3
+assets/voix/scenes/scene_8.mp3	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_130123_414262a7-72ef-4bdd-af9b-5e4d9d2afa1f.mp3
+# Plans vidéo : Kling 3.0 Pro.
 assets/plans/V1-01.mp4	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111128_8776fa1d-70c8-4e3a-89a7-0782e14dc403.mp4
 assets/plans/V5-01.mp4	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111127_17b19482-c769-4274-bcda-99341a5ac1a4.mp4
 assets/plans/V5-02.mp4	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111208_7acb0dba-3ec2-4073-8aa8-d50617f10162.mp4
 assets/plans/V7-01.mp4	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111127_32ded8db-d84e-4407-b43d-a3af8e378d50.mp4
+# Ancienne voix clonée (non utilisée) :
+# assets/voix/clone/scene_1.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_936bd658-4fe2-4c54-bcd5-73f7e53eb9c7.wav
+# assets/voix/clone/scene_2.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_6bbc52d9-2edb-4a6b-ae4e-4a25d178b288.wav
+# assets/voix/clone/scene_2_rapide.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111232_2d42c60d-45c7-48ba-87e4-a9d4100b5d39.wav
+# assets/voix/clone/scene_3.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_8c765436-8b0b-4720-ac65-7f693accc3e9.wav
+# assets/voix/clone/scene_4.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_5a0aaeff-4742-47a7-827b-bb183c00ec13.wav
+# assets/voix/clone/scene_4_rapide.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111231_1b78dbf6-b0af-462a-95a6-190d49c828ad.wav
+# assets/voix/clone/scene_5.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_88e54c4e-613f-44f5-84f3-0ea6d74b0c30.wav
+# assets/voix/clone/scene_6.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_dc3d9fb6-9dbe-4892-93dd-ebe0e65c91d6.wav
+# assets/voix/clone/scene_7.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110957_50f7b685-e700-4786-85a5-e695583ccd90.wav
+# assets/voix/clone/scene_7_rapide.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111433_a415cffb-efb0-4dd2-a5cc-8f4abce6be35.wav
+# assets/voix/clone/scene_8.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_110857_48198226-c95e-4d50-9e90-324af7c3c405.wav
+# assets/voix/clone/scene_8_rapide.wav	https://d8j0ntlcm91z4.cloudfront.net/user_3KdWDkCHpEHDUunqJ15tw7Bns4t/hf_20261013_111432_0e693ea6-58e3-48c9-8be4-bd887ca10833.wav

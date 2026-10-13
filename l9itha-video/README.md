@@ -82,15 +82,13 @@ fichier `assets/plans/<ID>.mp4` correspondant : `./build.sh` le découpe en
 images (`frames/<ID>/`) et l'intègre à l'emplacement, sous les titres animés.
 
 ### Voix off
-**Uniquement la voix clonée d'Abdelmoumen** (aucune voix de synthèse de
-remplacement). `audio/make_voice.py` (voix « tom » de Piper) ne sert plus
+**Voix off : « Julian »** (voix masculine professionnelle ElevenLabs, via
+Higgsfield), choisie parmi trois essais. Aucune autre voix de remplacement. `audio/make_voice.py` (voix « tom » de Piper) ne sert plus
 qu'aux essais manuels. Le nom se prononce « Lqitha
 Club ». Les sous-titres sont recalés automatiquement sur les pauses de la voix
 (`render/subs_timed.json`).
 
-**Voix clonée (Higgsfield, Seed Audio)** : la voix « Voix Abdelmoumen –
-L9ITHA » a lu le texte ci-dessous, une prise par scène (et une prise plus
-rapide pour les scènes 2, 4, 7 et 8). Les liens sont dans
+**Voix « Julian »** : une prise par scène du texte ci-dessous. Les liens sont dans
 `assets/higgsfield.tsv` ; `./build.sh` télécharge les fichiers manquants dans
 `assets/voix/scenes/`, puis `audio/place_voice.py` retire les silences, garde
 pour chaque scène la prise la plus posée qui tient dans sa fenêtre (×1,15 max,
