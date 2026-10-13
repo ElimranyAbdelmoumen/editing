@@ -42,6 +42,8 @@
   .ph .ttl{font:800 38px "Inter Display";max-width:1100px;line-height:1.15}
   .ph .dsc{font:500 24px "Inter";opacity:.75;max-width:1000px;line-height:1.35}
   .ph .ico{width:64px;height:64px;opacity:.7}
+  .ph img.plan{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ph.filmed > :not(img.plan){display:none}
 
   /* Fenêtre navigateur */
   .browser{position:absolute;border-radius:22px;background:#fff;box-shadow:0 40px 90px rgba(19,34,74,.22),0 8px 20px rgba(19,34,74,.08);overflow:hidden}
@@ -533,6 +535,7 @@ tiles.forEach((tl, i) => {
     el = document.createElement("div"); el.className = "ph " + tl[0];
     el.innerHTML = `<span class="tag">${tl[0] === "live" ? "Plan vidéo" : "Capture réelle"} · ${tl[1]}</span><div class="ttl" style="font-size:32px">${tl[2]}</div>`;
   }
+  if (tl[0] === "live") el.id = "plan-" + tl[1];
   el.style.left = x + "px"; el.style.top = y + "px"; el.style.width = "830px"; el.style.height = "430px";
   $("#s7-grid").appendChild(el);
   tw(el, [{opacity:0, transform:"scale(.85) rotate(" + (i % 2 ? 2 : -2) + "deg)"},{opacity:1, transform:"none"}], 76.2 + i * .35, .6, E.back);
@@ -551,8 +554,23 @@ inUp("#s8-cta1", 85.8, .6, 30);
 inUp("#s8-cta2", 86.2, .6, 30);
 pop("#s8-url", 86.7, .6);
 
-window.READY = true;
-seek(0);
+/* ================= PLANS VIDÉO ================= */
+// build.sh extrait assets/plans/<ID>.mp4 en images (frames/<ID>/) : le plan remplace alors son emplacement.
+const PLANS = [["#s1-live", "V1-01", 0], ["#s5-a", "V5-01", 48], ["#s5-b", "V5-02", 53.5], ["#plan-V7-01", "V7-01", 76.2]];
+const plansReady = Promise.all(PLANS.map(async ([sel, id, t0]) => {
+  const r = await fetch(`../frames/${id}/index.json`).catch(() => null);
+  if (!r || !r.ok) return;
+  const { n, fps } = await r.json();
+  const img = document.createElement("img"); img.className = "plan";
+  $(sel).prepend(img); $(sel).classList.add("filmed");
+  let cur = -1;
+  HOOKS.push(t => {
+    const k = Math.max(0, Math.min(n - 1, Math.floor((t - t0) * fps)));
+    if (k !== cur) { cur = k; img.src = `../frames/${id}/${String(k + 1).padStart(4, "0")}.jpg`; }
+  });
+}));
+
+plansReady.then(() => { seek(0); window.READY = true; });
 </script>
 </body>
 </html>

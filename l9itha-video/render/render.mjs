@@ -10,7 +10,7 @@ const root = path.dirname(new URL(import.meta.url).pathname);
 const [out = "out/video.mp4", fpsArg = "30", fromArg, toArg] = process.argv.slice(2);
 const fps = +fpsArg;
 
-const types = { ".html": "text/html", ".js": "text/javascript", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml", ".mp4": "video/mp4" };
+const types = { ".html": "text/html", ".js": "text/javascript", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml", ".mp4": "video/mp4", ".json": "application/json" };
 const server = http.createServer((req, res) => {
   const p = path.join(root, "..", decodeURIComponent(req.url.split("?")[0]));
   fs.readFile(p, (e, b) => e ? (res.writeHead(404), res.end()) : (res.writeHead(200, { "content-type": types[path.extname(p)] || "application/octet-stream" }), res.end(b)));
@@ -32,7 +32,7 @@ const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-fr
 
 const cdp = await page.context().newCDPSession(page);
 for (let i = 0; i < n; i++){
-  await page.evaluate(t => window.seek(t), t0 + i / fps);
+  await page.evaluate(t => { window.seek(t); return Promise.all([...document.querySelectorAll("img.plan")].map(im => im.decode().catch(() => {}))); }, t0 + i / fps);
   const { data } = await cdp.send("Page.captureScreenshot", { format: "jpeg", quality: 92 });
   if (!ff.stdin.write(Buffer.from(data, "base64"))) await new Promise(r => ff.stdin.once("drain", r));
   if (i % 150 === 0) console.log(`frame ${i}/${n}`);

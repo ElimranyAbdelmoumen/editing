@@ -5,7 +5,26 @@ set -euo pipefail
 cd "$(dirname "$0")"
 mkdir -p out
 
-[ -f out/animatique_sans_son.mp4 ] || node render/render.mjs out/animatique_sans_son.mp4 30
+# Récupère les voix et plans générés sur Higgsfield qui manquent encore.
+grep -v '^#' assets/higgsfield.tsv | while IFS=$'\t' read -r DEST URL; do
+  [ -z "$DEST" ] || [ -f "$DEST" ] || { mkdir -p "$(dirname "$DEST")"; curl -fsSL -o "$DEST.part" "$URL" && mv "$DEST.part" "$DEST" \
+    || { echo "Téléchargement impossible : $URL (domaine autorisé dans le réseau ?)" >&2; exit 1; }; }
+done
+
+# Plans tournés ou générés : assets/plans/<ID>.mp4 → images 1920×1080 à 30 i/s (frames/<ID>/).
+for P in assets/plans/*.mp4; do
+  [ -e "$P" ] || continue
+  ID=$(basename "$P" .mp4); D=frames/$ID
+  if [ ! -f "$D/index.json" ] || [ "$P" -nt "$D/index.json" ]; then
+    rm -rf "$D"; mkdir -p "$D"
+    ffmpeg -y -loglevel error -i "$P" -an -vf "fps=30,scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080" -q:v 3 "$D/%04d.jpg"
+    echo "{\"n\": $(ls "$D" | wc -l), \"fps\": 30}" > "$D/index.json"
+  fi
+done
+A=out/animatique_sans_son.mp4
+if [ ! -f $A ] || [ -n "$(find render/stage.html render/cues.js frames -newer $A -type f 2>/dev/null | head -1)" ]; then
+  node render/render.mjs $A 30
+fi
 python3 audio/make_audio.py
 # Voix off : prises par scène (voix clonée) en priorité, sinon voix de synthèse provisoire.
 if compgen -G "assets/voix/scenes/scene_*" > /dev/null; then python3 audio/place_voice.py

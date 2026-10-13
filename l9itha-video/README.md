@@ -70,21 +70,27 @@ Format : vidéo d'écran 1920×1080 (ou plus), 30 i/s, navigateur en plein écra
 Filles et garçons de 11 à 17 ans, établissement marocain. **Autorisations
 parentales de droit à l'image indispensables** pour les mineurs filmés.
 
+**Version actuelle : plans générés par IA** (Kling 3.0 Pro, 1080p, sans son),
+listés dans `assets/higgsfield.tsv` et téléchargés en `assets/plans/<ID>.mp4`.
+Les personnes sont fictives. Pour passer aux vrais plans tournés, remplacer le
+fichier `assets/plans/<ID>.mp4` correspondant : `./build.sh` le découpe en
+images (`frames/<ID>/`) et l'intègre à l'emplacement, sous les titres animés.
+
 ### Voix off
 **Actuelle : voix masculine française provisoire**, générée localement
 (`audio/make_voice.py`, modèle « tom » de Piper). Le nom se prononce « Lqitha
 Club ». Les sous-titres sont recalés automatiquement sur les pauses de la voix
 (`render/subs_timed.json`).
 
-**Voix clonée (Higgsfield, Seed Audio)** : une prise par scène, déposée en
-`assets/voix/scenes/scene_<n>.mp3` (n = numéro de scène de `render/cues.js`,
-texte ci-dessous). `./build.sh` détecte ces fichiers et lance
-`audio/place_voice.py`, qui retire les silences, accélère légèrement une prise
-trop longue (×1,15 max, sans changer la hauteur), la cale dans sa fenêtre et
-recale les sous-titres FR/EN sur les pauses réelles. Prérequis : autoriser
-`cdn.higgsfield.ai` et `d1xarpci4ikg0w.cloudfront.net` (téléchargement des
-prises) dans le réseau de l'environnement ; coût : environ 8,1 crédits pour les
-90 s, plus le clonage.
+**Voix clonée (Higgsfield, Seed Audio)** : la voix « Voix Abdelmoumen –
+L9ITHA » a lu le texte ci-dessous, une prise par scène (et une prise plus
+rapide pour les scènes 2, 4, 7 et 8). Les liens sont dans
+`assets/higgsfield.tsv` ; `./build.sh` télécharge les fichiers manquants dans
+`assets/voix/scenes/`, puis `audio/place_voice.py` retire les silences, garde
+pour chaque scène la prise la plus posée qui tient dans sa fenêtre (×1,15 max,
+sans changer la hauteur), la cale et recale les sous-titres FR/EN sur les
+pauses réelles. Prérequis : autoriser `d8j0ntlcm91z4.cloudfront.net` dans le
+réseau de l'environnement.
 
 Une prise libre enregistrée soi-même fonctionne aussi : la découper par scène
 et la déposer de la même façon.
