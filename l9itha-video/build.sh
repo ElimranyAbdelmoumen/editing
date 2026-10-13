@@ -7,7 +7,9 @@ mkdir -p out
 
 [ -f out/animatique_sans_son.mp4 ] || node render/render.mjs out/animatique_sans_son.mp4 30
 python3 audio/make_audio.py
-[ -f assets/voix/voix_off.wav ] || python3 audio/make_voice.py
+# Voix off : prises par scène (voix clonée) en priorité, sinon voix de synthèse provisoire.
+if compgen -G "assets/voix/scenes/scene_*" > /dev/null; then python3 audio/place_voice.py
+elif [ ! -f assets/voix/voix_off.wav ]; then python3 audio/make_voice.py; fi
 node subtitles/make_subs.mjs
 
 VO=assets/voix/voix_off.wav   # voix off calée sur la timeline (90 s)

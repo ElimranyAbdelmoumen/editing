@@ -76,12 +76,18 @@ parentales de droit à l'image indispensables** pour les mineurs filmés.
 Club ». Les sous-titres sont recalés automatiquement sur les pauses de la voix
 (`render/subs_timed.json`).
 
-Pour une **voix d'homme marocain**, deux options :
-1. Enregistrer le texte ci-dessous (toi ou un comédien marocain), puis le
-   déposer en `assets/voix/voix_off.wav` et relancer `./build.sh`.
-2. Cloner la voix de l'échantillon fourni avec Higgsfield (Seed Audio). Il
-   faut autoriser `upload.higgsfield.ai` dans le réseau de l'environnement et
-   disposer d'au moins 8,1 crédits pour les 90 s.
+**Voix clonée (Higgsfield, Seed Audio)** : une prise par scène, déposée en
+`assets/voix/scenes/scene_<n>.mp3` (n = numéro de scène de `render/cues.js`,
+texte ci-dessous). `./build.sh` détecte ces fichiers et lance
+`audio/place_voice.py`, qui retire les silences, accélère légèrement une prise
+trop longue (×1,15 max, sans changer la hauteur), la cale dans sa fenêtre et
+recale les sous-titres FR/EN sur les pauses réelles. Prérequis : autoriser
+`cdn.higgsfield.ai` et `d1xarpci4ikg0w.cloudfront.net` (téléchargement des
+prises) dans le réseau de l'environnement ; coût : environ 8,1 crédits pour les
+90 s, plus le clonage.
+
+Une prise libre enregistrée soi-même fonctionne aussi : la découper par scène
+et la déposer de la même façon.
 
 Texte de lecture :
 Lire chaque ligne dans sa fenêtre de temps (une prise libre fonctionne aussi :
