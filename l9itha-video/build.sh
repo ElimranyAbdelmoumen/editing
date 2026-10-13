@@ -8,7 +8,7 @@ mkdir -p out
 # Récupère les voix et plans générés sur Higgsfield qui manquent encore.
 grep -v '^#' assets/higgsfield.tsv | while IFS=$'\t' read -r DEST URL; do
   [ -z "$DEST" ] || [ -f "$DEST" ] || { mkdir -p "$(dirname "$DEST")"; curl -fsSL -o "$DEST.part" "$URL" && mv "$DEST.part" "$DEST" \
-    || { echo "Téléchargement impossible : $URL (domaine autorisé dans le réseau ?)" >&2; exit 1; }; }
+    || { rm -f "$DEST.part"; echo "⚠ Téléchargement impossible : $DEST (domaine autorisé dans le réseau ?)" >&2; }; }
 done
 
 # Plans tournés ou générés : assets/plans/<ID>.mp4 → images 1920×1080 à 30 i/s (frames/<ID>/).
@@ -28,7 +28,10 @@ fi
 python3 audio/make_audio.py
 # Voix off : prises par scène (voix clonée) en priorité, sinon voix de synthèse provisoire.
 if compgen -G "assets/voix/scenes/scene_*" > /dev/null; then python3 audio/place_voice.py
-elif [ ! -f assets/voix/voix_off.wav ]; then python3 audio/make_voice.py; fi
+elif [ ! -f assets/voix/voix_off.wav ]; then
+  python3 -c "import sherpa_onnx" 2>/dev/null && python3 audio/make_voice.py \
+    || echo "⚠ Aucune voix off disponible : version de relecture sans voix." >&2
+fi
 node subtitles/make_subs.mjs
 
 VO=assets/voix/voix_off.wav   # voix off calée sur la timeline (90 s)
