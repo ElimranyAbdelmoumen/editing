@@ -1,0 +1,110 @@
+1
+00:00:00,600 --> 00:00:03,600
+Et si quelques lignes de code
+
+2
+00:00:03,600 --> 00:00:07,400
+devenaient le début d'une nouvelle passion ?
+
+3
+00:00:08,600 --> 00:00:11,600
+Avec L9ITHA.Club, les élèves découvrent
+la programmation Python
+
+4
+00:00:11,600 --> 00:00:14,600
+dans un club informatique structuré,
+avec des activités progressives
+
+5
+00:00:14,600 --> 00:00:17,600
+et l'accompagnement de leur professeur.
+
+6
+00:00:18,500 --> 00:00:21,800
+Deux parcours, Junior et Pro,
+
+7
+00:00:21,800 --> 00:00:24,800
+proposent une progression adaptée à l'âge.
+
+8
+00:00:24,800 --> 00:00:27,400
+On s'échauffe, on s'entraîne avec de l'aide,
+
+9
+00:00:27,400 --> 00:00:29,800
+on pratique, puis on relève un défi.
+
+10
+00:00:30,500 --> 00:00:34,000
+L'élève écrit son code, l'exécute
+et observe le résultat.
+
+11
+00:00:34,000 --> 00:00:38,600
+Des indices et des messages en français
+l'aident à comprendre ses erreurs.
+
+12
+00:00:38,600 --> 00:00:42,600
+Il corrige, recommence et avance.
+
+13
+00:00:42,600 --> 00:00:47,400
+Son travail est sauvegardé
+pour la prochaine séance.
+
+14
+00:00:48,500 --> 00:00:52,000
+Pour les parents, c'est une activité encadrée
+
+15
+00:00:52,000 --> 00:00:55,600
+pour développer la logique,
+encourager la créativité
+
+16
+00:00:55,600 --> 00:00:59,600
+et apprendre à persévérer face à un problème.
+
+17
+00:01:00,500 --> 00:01:04,400
+Pour les écoles, la plateforme rassemble
+l'organisation du club,
+
+18
+00:01:04,400 --> 00:01:07,400
+les supports et les exercices.
+
+19
+00:01:07,400 --> 00:01:11,600
+Le professeur présente la séance,
+ouvre les activités
+
+20
+00:01:11,600 --> 00:01:15,600
+et retrouve les présences, les progrès
+et les résultats de ses élèves.
+
+21
+00:01:16,400 --> 00:01:19,600
+Des premiers essais aux défis de programmation,
+
+22
+00:01:19,600 --> 00:01:21,800
+chaque séance invite les élèves
+à comprendre le code
+
+23
+00:01:21,800 --> 00:01:23,800
+et à donner forme à leurs idées.
+
+24
+00:01:24,400 --> 00:01:26,400
+Découvrez L9ITHA.Club.
+
+25
+00:01:26,400 --> 00:01:29,600
+Pour rejoindre le club ou demander
+une démonstration, contactez-nous.

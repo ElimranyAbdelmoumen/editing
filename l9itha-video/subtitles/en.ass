@@ -1,0 +1,37 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter SemiBold,46,&H00FFFFFF,&H00FFFFFF,&H00000000,&H9A13224A,0,0,0,0,100,100,0,0,3,14,0,2,200,200,46,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.60,0:00:03.60,Sub,,0,0,0,,{\fad(120,120)}What if a few lines of code
+Dialogue: 0,0:00:03.60,0:00:07.40,Sub,,0,0,0,,{\fad(120,120)}became the start of a new passion?
+Dialogue: 0,0:00:08.60,0:00:11.60,Sub,,0,0,0,,{\fad(120,120)}With L9ITHA.Club, students discover\NPython programming
+Dialogue: 0,0:00:11.60,0:00:14.60,Sub,,0,0,0,,{\fad(120,120)}in a structured computer club,\Nwith step-by-step activities
+Dialogue: 0,0:00:14.60,0:00:17.60,Sub,,0,0,0,,{\fad(120,120)}and the support of their teacher.
+Dialogue: 0,0:00:18.50,0:00:21.80,Sub,,0,0,0,,{\fad(120,120)}Two tracks, Junior and Pro,
+Dialogue: 0,0:00:21.80,0:00:24.80,Sub,,0,0,0,,{\fad(120,120)}offer a progression suited to each age.
+Dialogue: 0,0:00:24.80,0:00:27.40,Sub,,0,0,0,,{\fad(120,120)}We warm up, practise with guidance,
+Dialogue: 0,0:00:27.40,0:00:29.80,Sub,,0,0,0,,{\fad(120,120)}practise on our own, then take on a challenge.
+Dialogue: 0,0:00:30.50,0:00:34.00,Sub,,0,0,0,,{\fad(120,120)}Students write their code, run it\Nand watch the result.
+Dialogue: 0,0:00:34.00,0:00:38.60,Sub,,0,0,0,,{\fad(120,120)}Hints and messages in French\Nhelp them understand their mistakes.
+Dialogue: 0,0:00:38.60,0:00:42.60,Sub,,0,0,0,,{\fad(120,120)}They fix it, try again and move forward.
+Dialogue: 0,0:00:42.60,0:00:47.40,Sub,,0,0,0,,{\fad(120,120)}Their work is saved\Nfor the next session.
+Dialogue: 0,0:00:48.50,0:00:52.00,Sub,,0,0,0,,{\fad(120,120)}For parents, it's a supervised activity
+Dialogue: 0,0:00:52.00,0:00:55.60,Sub,,0,0,0,,{\fad(120,120)}to build logical thinking,\Nencourage creativity
+Dialogue: 0,0:00:55.60,0:00:59.60,Sub,,0,0,0,,{\fad(120,120)}and learn to persevere when facing a problem.
+Dialogue: 0,0:01:00.50,0:01:04.40,Sub,,0,0,0,,{\fad(120,120)}For schools, the platform brings together\Nthe club's organisation,
+Dialogue: 0,0:01:04.40,0:01:07.40,Sub,,0,0,0,,{\fad(120,120)}the course materials and the exercises.
+Dialogue: 0,0:01:07.40,0:01:11.60,Sub,,0,0,0,,{\fad(120,120)}The teacher presents the session,\Nopens the activities
+Dialogue: 0,0:01:11.60,0:01:15.60,Sub,,0,0,0,,{\fad(120,120)}and sees attendance, progress\Nand results for every student.
+Dialogue: 0,0:01:16.40,0:01:19.60,Sub,,0,0,0,,{\fad(120,120)}From first attempts to coding challenges,
+Dialogue: 0,0:01:19.60,0:01:21.80,Sub,,0,0,0,,{\fad(120,120)}every session invites students\Nto understand code
+Dialogue: 0,0:01:21.80,0:01:23.80,Sub,,0,0,0,,{\fad(120,120)}and to bring their ideas to life.
+Dialogue: 0,0:01:24.40,0:01:26.40,Sub,,0,0,0,,{\fad(120,120)}Discover L9ITHA.Club.
+Dialogue: 0,0:01:26.40,0:01:29.60,Sub,,0,0,0,,{\fad(120,120)}To join the club or request\Na demo, get in touch.

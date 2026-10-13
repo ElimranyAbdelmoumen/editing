@@ -1,0 +1,103 @@
+# L9ITHA.Club : vidéo promotionnelle (90 s, 16:9 Full HD)
+
+Animatique v0 : rythme, animations, transitions, typographie, effets sonores et
+sous-titres sont en place. Les captures de la plateforme, les plans tournés, le
+logo et la voix off sont remplacés par des **emplacements de montage
+identifiés** (`C…` = capture réelle, `V…` = plan vidéo).
+
+## Fichiers
+
+| Fichier | Rôle |
+|---|---|
+| `render/cues.js` | Timings des scènes + texte de la voix off et sous-titres FR/EN (source unique) |
+| `render/stage.html` | Toute l'animation (une timeline déterministe, 1920×1080) |
+| `render/render.mjs` | Rendu image par image → `out/animatique_sans_son.mp4` |
+| `render/thumbnail.html` | Miniature 1280×720 |
+| `audio/make_audio.py` | Musique provisoire + effets sonores synchronisés |
+| `subtitles/` | `fr.srt`, `en.srt`, `fr.ass`, `en.ass` (générés) |
+| `build.sh` | Assemblage final : mixage (ducking sous la voix), sous-titres incrustés |
+
+```bash
+npm install && ./build.sh
+```
+
+## Livrables générés (`out/`, non versionnés)
+
+- `L9ITHA_Club_90s.mp4` : version principale, sans sous-titres
+- `L9ITHA_Club_90s_soustitres_fr.mp4` : sous-titres français incrustés
+- `L9ITHA_Club_90s_soustitres_en.mp4` : sous-titres anglais incrustés
+- `miniature.png` : « Apprendre Python, créer ses premières idées »
+
+## Éléments à fournir
+
+### Logo
+- `assets/logo/` : logo officiel en **SVG ou PNG transparent** (version claire + version sur fond sombre). Il sera intégré tel quel, sans être redessiné.
+
+### Captures réelles de la plateforme (comptes et noms fictifs)
+Format : vidéo d'écran 1920×1080 (ou plus), 30 i/s, navigateur en plein écran, zoom 125 %.
+
+| ID | Moment | Contenu |
+|---|---|---|
+| C2-01 | 11,4 s | Accueil élève (thème clair) |
+| C2-02 | 14,8 s | L'élève ouvre une séance |
+| C3-01 | 18,4 s | Activités Junior : frappe, quiz, réflexes |
+| C3-02 | 19,4 s | Activités Pro : programmes à compléter ou à réparer |
+| C4-01 | 30,0 s | Consigne d'un exercice |
+| C4-02 | 32,0 s | Saisie de `print("Bonjour !")` |
+| C4-03 | 33,4 s | Clic sur Exécuter : la console affiche `Bonjour !` |
+| C4-04 | 34,6 s | Vrai message d'erreur et indice en français |
+| C4-05 | 37,2 s | Correction du code |
+| C4-06 | 39,6 s | Soumettre : résultats des tests et points |
+| C4-07 | 42,2 s | Dessin Turtle |
+| C4-08 | 44,6 s | Reprise du travail sauvegardé |
+| C6-01 | 60,0 s | Prof : choix du groupe et de la séance |
+| C6-02 | 62,4 s | Prof : cartes des séances |
+| C6-03 | 64,4 s | Prof : présentation d'un support |
+| C6-04 | 67,4 s | Prof : déblocage des exercices, code de présence |
+| C6-05 | 70,0 s | Prof : tableau de suivi (présences, progression, résultats, détail des essais) |
+| C6-06 | 73,8 s | Admin (bref) : import Excel, tickets de connexion |
+| C7-01 | 76,2 s | Quiz terminé |
+| C7-02 | 76,6 s | Programme qui fonctionne |
+
+### Plans tournés en salle informatique
+| ID | Moment | Contenu |
+|---|---|---|
+| V1-01 | 0–8 s | Un élève tape du Python, un dessin coloré apparaît ; un camarade observe ; échange avec le professeur |
+| V5-01 | 48–53,5 s | Le professeur échange avec un élève devant l'écran |
+| V5-02 | 53,5–60 s | L'élève explique son programme à un parent |
+| V7-01 | 77,3 s | Échange entre élèves et professeur |
+
+Filles et garçons de 11 à 17 ans, établissement marocain. **Autorisations
+parentales de droit à l'image indispensables** pour les mineurs filmés.
+
+### Voix off
+Déposer `assets/voix/voix_off.wav`, un fichier unique de 90 s calé sur la
+timeline. Une prise libre fonctionne aussi : je la découpe et je la cale.
+Lire chaque ligne dans sa fenêtre de temps :
+
+| Fenêtre | Texte |
+|---|---|
+| 0,6 – 7,4 | Et si quelques lignes de code devenaient le début d'une nouvelle passion ? |
+| 8,6 – 17,6 | Avec L9ITHA.Club, les élèves découvrent la programmation Python dans un club informatique structuré, avec des activités progressives et l'accompagnement de leur professeur. |
+| 18,5 – 29,8 | Deux parcours, Junior et Pro, proposent une progression adaptée à l'âge. On s'échauffe, on s'entraîne avec de l'aide, on pratique, puis on relève un défi. |
+| 30,5 – 47,4 | L'élève écrit son code, l'exécute et observe le résultat. Des indices et des messages en français l'aident à comprendre ses erreurs. Il corrige, recommence et avance. Son travail est sauvegardé pour la prochaine séance. |
+| 48,5 – 59,6 | Pour les parents, c'est une activité encadrée pour développer la logique, encourager la créativité et apprendre à persévérer face à un problème. |
+| 60,5 – 75,6 | Pour les écoles, la plateforme rassemble l'organisation du club, les supports et les exercices. Le professeur présente la séance, ouvre les activités et retrouve les présences, les progrès et les résultats de ses élèves. |
+| 76,4 – 83,8 | Des premiers essais aux défis de programmation, chaque séance invite les élèves à comprendre le code et à donner forme à leurs idées. |
+| 84,4 – 89,6 | Découvrez L9ITHA.Club. Pour rejoindre le club ou demander une démonstration, contactez-nous. |
+
+Conseils d'enregistrement : pièce calme et meublée (pas de salle de bain ni de
+pièce vide), téléphone à 20 cm, légèrement de côté, débit posé et souriant.
+
+### Musique
+La piste actuelle est une maquette synthétisée. Pour la version finale, il
+faut une piste instrumentale libre de droits (Artlist, Epidemic Sound ou
+YouTube Audio Library), positive, autour de 100 BPM.
+
+## Cohérence vérifiée
+- Le code affiché à 0–4 s produit exactement le dessin animé ensuite (36
+  segments de 220 px, rotation de 170°, couleurs nommées de Turtle : indigo,
+  green, royalblue, orange).
+- `print("Bonjour !")` → `Bonjour !`
+- Aucun témoignage, aucune statistique, aucun partenaire, aucun espace parent,
+  aucun terme technique (Docker, API, Judge0, Pyodide).

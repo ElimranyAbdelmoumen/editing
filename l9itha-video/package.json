@@ -1,0 +1,11 @@
+{
+  "name": "l9itha-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "render": "node render/render.mjs out/animatique_sans_son.mp4 30",
+    "subs": "node subtitles/make_subs.mjs",
+    "audio": "python3 audio/make_audio.py"
+  },
+  "devDependencies": { "playwright": "1.56.1" }
+}

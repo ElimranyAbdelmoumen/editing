@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>L9ITHA.Club — animatique</title>
+<style>
+  :root{
+    --cream:#FBF7EF; --cream2:#F3ECDD; --card:#FFFFFF; --navy:#13224A; --navy2:#2A3A66;
+    --muted:#6B7491; --green:#1F9D63; --green-l:#E3F5EC; --blue:#2F6FEB; --blue-l:#E4EDFE;
+    --indigo:#5B5BD6; --indigo-d:#3F3FB8; --indigo-l:#ECECFC; --amber:#F2A93B;
+    --editor:#111a33;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden;background:var(--cream)}
+  body{font-family:"Inter",sans-serif;color:var(--navy);-webkit-font-smoothing:antialiased}
+  .display{font-family:"Inter Display","Inter",sans-serif}
+  .mono{font-family:"DejaVu Sans Mono","Liberation Mono",monospace}
+
+  #stage{position:absolute;inset:0;overflow:hidden}
+  .scene{position:absolute;inset:0;visibility:hidden}
+  .abs{position:absolute}
+
+  /* Fond vivant */
+  .bg{position:absolute;inset:-10%;background:
+      radial-gradient(800px 600px at 15% 20%, rgba(91,91,214,.13), transparent 60%),
+      radial-gradient(700px 600px at 85% 80%, rgba(31,157,99,.12), transparent 60%),
+      radial-gradient(600px 500px at 80% 15%, rgba(47,111,235,.10), transparent 60%),
+      var(--cream)}
+  .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(19,34,74,.07) 1.5px, transparent 1.6px);background-size:36px 36px}
+  .glyph{position:absolute;font-family:"DejaVu Sans Mono",monospace;color:rgba(91,91,214,.16);font-size:34px;font-weight:700}
+
+  /* Emplacements de montage */
+  .ph{position:absolute;overflow:hidden;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:40px}
+  .ph.cap{background:
+      repeating-linear-gradient(135deg, rgba(91,91,214,.06) 0 22px, rgba(91,91,214,.0) 22px 44px), #F7F5FF;
+      border:3px dashed rgba(91,91,214,.55)}
+  .ph.live{background:
+      radial-gradient(circle at 30% 30%, #5d6a8e 0, #2b3557 60%, #1b2340 100%);
+      color:#fff; border:3px dashed rgba(255,255,255,.35)}
+  .ph .tag{font:700 20px "Inter";letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:999px;background:var(--indigo);color:#fff}
+  .ph.live .tag{background:var(--amber);color:#1b2340}
+  .ph .ttl{font:800 38px "Inter Display";max-width:1100px;line-height:1.15}
+  .ph .dsc{font:500 24px "Inter";opacity:.75;max-width:1000px;line-height:1.35}
+  .ph .ico{width:64px;height:64px;opacity:.7}
+
+  /* Fenêtre navigateur */
+  .browser{position:absolute;border-radius:22px;background:#fff;box-shadow:0 40px 90px rgba(19,34,74,.22),0 8px 20px rgba(19,34,74,.08);overflow:hidden}
+  .browser .bar{height:52px;background:#F1ECE1;display:flex;align-items:center;gap:10px;padding:0 20px}
+  .browser .bar i{width:14px;height:14px;border-radius:50%;background:#E5DCCB;display:block}
+  .browser .url{margin-left:18px;flex:1;height:32px;border-radius:10px;background:#fff;display:flex;align-items:center;padding:0 16px;font:500 18px "Inter";color:var(--muted)}
+  .browser .view{position:absolute;top:52px;left:0;right:0;bottom:0}
+  .browser .view .ph{inset:18px;border-radius:14px}
+
+  /* Éditeur de code générique (habillage, pas l'interface de la plateforme) */
+  .editor{position:absolute;background:var(--editor);border-radius:22px;box-shadow:0 30px 80px rgba(10,15,40,.45);overflow:hidden}
+  .editor .bar{height:46px;display:flex;align-items:center;gap:9px;padding:0 18px;background:#0c1328}
+  .editor .bar i{width:12px;height:12px;border-radius:50%;display:block}
+  .editor pre{padding:22px 28px;font:500 23px/1.6 "DejaVu Sans Mono",monospace;color:#E6EAF7;white-space:pre}
+  .k{color:#B8A6FF}.s{color:#7EE2A8}.n{color:#FFC27A}.f{color:#7CB8FF}.c{color:#6c7899}
+  .caret{display:inline-block;width:13px;height:28px;background:#7CB8FF;vertical-align:-5px;margin-left:2px}
+
+  .canvas{position:absolute;background:#fff;border-radius:22px;box-shadow:0 30px 80px rgba(19,34,74,.25);overflow:hidden}
+  .canvas .bar{height:46px;display:flex;align-items:center;padding:0 18px;font:600 18px "Inter";color:var(--muted);background:#F6F2EA}
+
+  /* Typo cinétique */
+  .kin{font:900 120px/1 "Inter Display";letter-spacing:-.02em;color:var(--navy)}
+  .kin .w{display:inline-block;margin-right:28px}
+  .eyebrow{font:700 24px "Inter";letter-spacing:.16em;text-transform:uppercase;color:var(--indigo)}
+  .h2{font:900 72px/1.05 "Inter Display";letter-spacing:-.015em}
+
+  .card{position:absolute;background:var(--card);border-radius:28px;box-shadow:0 30px 70px rgba(19,34,74,.14);overflow:hidden}
+  .pill{display:inline-flex;align-items:center;gap:14px;padding:18px 30px;border-radius:999px;background:#fff;box-shadow:0 16px 40px rgba(19,34,74,.16);font:800 40px "Inter Display";color:var(--navy)}
+  .pill svg{width:40px;height:40px}
+
+  .steps{position:absolute;display:flex;flex-direction:column;gap:26px}
+  .step{white-space:nowrap;font:800 54px "Inter Display";color:rgba(19,34,74,.25);display:flex;align-items:center;gap:22px}
+  .step .b{width:22px;height:22px;border-radius:50%;background:currentColor}
+
+  .chip{position:absolute;border-radius:18px;background:var(--editor);color:#E6EAF7;box-shadow:0 20px 50px rgba(10,15,40,.35);font:500 30px "DejaVu Sans Mono",monospace;padding:20px 28px}
+  .chip .lbl{font:700 15px "Inter";letter-spacing:.14em;text-transform:uppercase;color:#8d98bd;display:block;margin-bottom:8px}
+
+  .toast{position:absolute;display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:18px 26px;box-shadow:0 20px 50px rgba(19,34,74,.2);font:700 28px "Inter";color:var(--navy)}
+  .toast svg{width:38px;height:38px}
+
+  .wipe{position:absolute;inset:0;pointer-events:none}
+  .wipe div{position:absolute;top:-10%;bottom:-10%;width:130%;left:-15%}
+  .vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center, transparent 60%, rgba(19,34,74,.10) 100%)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ============ SCÈNE 1 — 0–8 s ============ -->
+  <section class="scene" id="s1">
+    <div class="ph live" id="s1-live" style="inset:0;border-radius:0;border:none;align-items:flex-start;text-align:left;padding:0 1000px 260px 110px">
+      <span class="tag">Plan vidéo · V1-01</span>
+      <div class="ttl">Salle informatique : un élève tape quelques lignes de Python, un dessin coloré apparaît.</div>
+      <div class="dsc">Son camarade observe, puis tous deux échangent avec le professeur. Filles et garçons 11–17 ans, établissement marocain.</div>
+    </div>
+    <div class="abs" style="inset:0;background:linear-gradient(90deg, rgba(19,34,74,.0) 30%, rgba(19,34,74,.55) 100%)"></div>
+    <div class="editor" id="s1-ed" style="left:960px;top:100px;width:880px;height:440px">
+      <div class="bar"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#06d6a0"></i></div>
+      <pre id="s1-code"></pre>
+    </div>
+    <div class="canvas" id="s1-cv" style="left:1330px;top:520px;width:540px;height:470px">
+      <div class="bar">Turtle</div>
+      <svg id="s1-turtle" class="abs" style="left:0;top:46px" width="540" height="424"></svg>
+    </div>
+    <div class="kin abs" id="s1-kin" style="left:110px;top:790px;font-size:88px;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.35)">
+      <span class="w">Apprendre.</span><span class="w">Essayer.</span><span class="w" style="color:#9ff0c6">Créer.</span>
+    </div>
+  </section>
+
+  <!-- ============ SCÈNE 2 — 8–18 s ============ -->
+  <section class="scene" id="s2">
+    <div class="bg"></div><div class="dots"></div>
+    <div id="s2-logo" class="abs" style="left:660px;top:250px;width:600px;height:400px;display:flex;flex-direction:column;align-items:center;gap:30px">
+      <div class="ph cap" style="position:relative;width:420px;height:200px;padding:20px">
+        <span class="tag">Logo officiel</span>
+        <div class="dsc" style="font-size:20px">assets/logo/ — à fournir</div>
+      </div>
+      <div class="display" id="s2-name" style="font:900 104px 'Inter Display';letter-spacing:-.02em;white-space:nowrap">L9ITHA.Club</div>
+    </div>
+    <div class="abs display" id="s2-tag" style="left:0;right:0;top:700px;text-align:center;font:700 46px 'Inter Display';color:var(--navy2)">Le club informatique prend vie.</div>
+
+    <div class="browser" id="s2-br" style="left:260px;top:120px;width:1400px;height:860px">
+      <div class="bar"><i></i><i></i><i></i><div class="url">club.l9itha.ma</div></div>
+      <div class="view">
+        <div class="ph cap" id="s2-c1"><span class="tag">Capture réelle · C2-01</span><div class="ttl">Accueil de la plateforme (espace élève, thème clair)</div><div class="dsc">Compte élève fictif. Fond crème, cartes claires.</div></div>
+        <div class="ph cap" id="s2-c2"><span class="tag">Capture réelle · C2-02</span><div class="ttl">L'élève ouvre une séance</div><div class="dsc">Clic sur une carte de séance → ouverture.</div></div>
+      </div>
+    </div>
+    <div class="abs eyebrow" id="s2-eb" style="left:260px;top:62px">Espace élève</div>
+  </section>
+
+  <!-- ============ SCÈNE 3 — 18–30 s ============ -->
+  <section class="scene" id="s3">
+    <div class="bg"></div><div class="dots"></div>
+    <div class="abs eyebrow" id="s3-eb" style="left:0;right:0;top:80px;text-align:center">Deux parcours</div>
+    <div id="s3-cards" class="abs" style="left:0;top:0;width:1920px;height:1080px">
+      <div class="card" id="s3-j" style="left:200px;top:160px;width:720px;height:620px">
+        <div style="height:12px;background:var(--green)"></div>
+        <div style="padding:34px 40px 0;display:flex;align-items:baseline;gap:22px">
+          <div style="font:900 78px 'Inter Display';color:var(--green)">Junior</div>
+          <div style="font:700 38px 'Inter';color:var(--navy2)">11–13 ans</div>
+        </div>
+        <div class="ph cap" style="left:40px;right:40px;top:150px;bottom:40px;border-color:rgba(31,157,99,.6);background:repeating-linear-gradient(135deg, rgba(31,157,99,.07) 0 22px, transparent 22px 44px),#F4FBF7">
+          <span class="tag" style="background:var(--green)">Capture réelle · C3-01</span>
+          <div class="ttl" style="font-size:32px">Activités Junior : frappe, quiz, réflexes</div>
+        </div>
+      </div>
+      <div class="card" id="s3-p" style="left:1000px;top:160px;width:720px;height:620px">
+        <div style="height:12px;background:var(--blue)"></div>
+        <div style="padding:34px 40px 0;display:flex;align-items:baseline;gap:22px">
+          <div style="font:900 78px 'Inter Display';color:var(--blue)">Pro</div>
+          <div style="font:700 38px 'Inter';color:var(--navy2)">14–17 ans</div>
+        </div>
+        <div class="ph cap" style="left:40px;right:40px;top:150px;bottom:40px;border-color:rgba(47,111,235,.6);background:repeating-linear-gradient(135deg, rgba(47,111,235,.07) 0 22px, transparent 22px 44px),#F3F7FF">
+          <span class="tag" style="background:var(--blue)">Capture réelle · C3-02</span>
+          <div class="ttl" style="font-size:32px">Activités Pro : programmes à compléter ou à réparer</div>
+        </div>
+      </div>
+    </div>
+    <div id="s3-rail" class="abs" style="left:200px;top:800px;width:1520px;height:180px">
+      <div class="abs" style="left:60px;right:60px;top:40px;height:10px;border-radius:5px;background:rgba(19,34,74,.1)"></div>
+      <div class="abs" id="s3-fill" style="left:60px;width:1400px;top:40px;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--green),var(--blue),var(--indigo));transform-origin:left center"></div>
+    </div>
+  </section>
+
+  <!-- ============ SCÈNE 4 — 30–48 s ============ -->
+  <section class="scene" id="s4">
+    <div class="bg"></div><div class="dots"></div>
+    <div class="abs eyebrow" style="left:110px;top:70px">L'atelier, dans le navigateur</div>
+    <div class="browser" id="s4-br" style="left:110px;top:120px;width:1220px;height:860px">
+      <div class="bar"><i></i><i></i><i></i><div class="url">club.l9itha.ma</div></div>
+      <div class="view" id="s4-view"></div>
+    </div>
+    <div class="steps" id="s4-steps" style="left:1420px;top:300px"></div>
+    <div class="chip" id="s4-chip" style="left:620px;top:690px;width:560px">
+      <span class="lbl">Code</span><span class="f">print</span>(<span class="s">"Bonjour !"</span>)
+      <span class="lbl" style="margin-top:16px">Sortie</span><span id="s4-out">Bonjour !</span>
+    </div>
+    <div class="toast" id="s4-save" style="left:640px;top:880px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4.5 4.5 0 0 1-.5-9 6 6 0 0 1 11.6 1.5A3.75 3.75 0 0 1 17.5 18Z"/><path d="m9.5 13 2 2 3.5-3.5"/></svg>
+      Travail sauvegardé automatiquement
+    </div>
+  </section>
+
+  <!-- ============ SCÈNE 5 — 48–60 s ============ -->
+  <section class="scene" id="s5">
+    <div class="ph live" id="s5-a" style="inset:0;border-radius:0;border:none">
+      <span class="tag">Plan vidéo · V5-01</span>
+      <div class="ttl">Le professeur échange avec un élève devant son écran.</div>
+      <div class="dsc">L'élève montre son programme ou son dessin Turtle.</div>
+    </div>
+    <div class="ph live" id="s5-b" style="inset:0;border-radius:0;border:none">
+      <span class="tag">Plan vidéo · V5-02</span>
+      <div class="ttl">L'élève explique son raisonnement à un parent.</div>
+      <div class="dsc">Moment naturel, à l'école ou à la maison.</div>
+    </div>
+    <div class="abs" style="left:0;right:0;bottom:0;height:520px;background:linear-gradient(0deg, rgba(19,34,74,.75), transparent)"></div>
+    <div class="abs eyebrow" id="s5-eb" style="left:110px;top:80px;color:#fff;background:rgba(19,34,74,.55);padding:12px 22px;border-radius:999px">Pour les parents</div>
+    <div class="abs" id="s5-pills" style="left:110px;top:720px;display:flex;gap:26px">
+      <div class="pill" id="s5-p1"><svg viewBox="0 0 24 24" fill="none" stroke="#5B5BD6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5 12H2M22 12h-3M6.3 6.3 4.2 4.2M17.7 6.3l2.1-2.1"/><circle cx="12" cy="13" r="5"/><path d="M10 21h4"/></svg>Logique</div>
+      <div class="pill" id="s5-p2"><svg viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5 5.6.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9 5.6-.8z"/></svg>Créativité</div>
+      <div class="pill" id="s5-p3"><svg viewBox="0 0 24 24" fill="none" stroke="#2F6FEB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20V12M12 20V7M18 20V4"/></svg>Persévérance</div>
+    </div>
+  </section>
+
+  <!-- ============ SCÈNE 6 — 60–76 s ============ -->
+  <section class="scene" id="s6">
+    <div class="bg"></div><div class="dots"></div>
+    <div class="abs eyebrow" style="left:110px;top:70px">Pour les écoles · Espace professeur</div>
+    <div class="browser" id="s6-br" style="left:110px;top:120px;width:1220px;height:860px">
+      <div class="bar"><i></i><i></i><i></i><div class="url">club.l9itha.ma</div></div>
+      <div class="view" id="s6-view"></div>
+    </div>
+    <div class="steps" id="s6-steps" style="left:1400px;top:340px;font-size:0"><style>#s6-steps .step{font-size:44px}</style></div>
+    <div class="abs" id="s6-lens" style="left:700px;top:430px;width:300px;height:300px;border-radius:50%;border:8px solid var(--indigo);box-shadow:0 0 0 9999px rgba(19,34,74,.0)"></div>
+  </section>
+
+  <!-- ============ SCÈNE 7 — 76–84 s ============ -->
+  <section class="scene" id="s7">
+    <div class="bg"></div><div class="dots"></div>
+    <div id="s7-grid" class="abs" style="left:110px;top:90px;width:1700px;height:900px"></div>
+    <div class="abs" id="s7-veil" style="inset:0;background:rgba(251,247,239,.86)"></div>
+    <div class="abs" style="left:0;right:0;top:360px;text-align:center">
+      <div class="h2" id="s7-t1" style="font-size:96px">Comprendre le code</div>
+      <div class="h2" id="s7-t2" style="font-size:96px;color:var(--indigo);margin-top:16px">Donner forme à ses idées</div>
+    </div>
+  </section>
+
+  <!-- ============ SCÈNE 8 — 84–90 s ============ -->
+  <section class="scene" id="s8">
+    <div class="bg"></div><div class="dots"></div>
+    <div class="abs" style="left:0;right:0;top:70px;display:flex;flex-direction:column;align-items:center">
+      <div class="ph cap" id="s8-logo" style="position:relative;width:300px;height:130px;padding:14px;gap:6px">
+        <span class="tag" style="font-size:15px">Logo officiel</span>
+      </div>
+      <div class="display" id="s8-name" style="font:900 112px 'Inter Display';letter-spacing:-.02em;margin-top:26px">L9ITHA.Club</div>
+      <div id="s8-tag" style="font:700 46px 'Inter Display';color:var(--navy2);margin-top:6px">Apprends, pratique et crée avec Python.</div>
+      <div id="s8-cta1" style="margin-top:44px;font:600 34px 'Inter';display:flex;gap:16px;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:var(--green)"></span>Parents et élèves&#8239;: rejoignez le club de votre établissement.</div>
+      <div id="s8-cta2" style="margin-top:14px;font:600 34px 'Inter';display:flex;gap:16px;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:var(--blue)"></span>Écoles&#8239;: demandez une démonstration.</div>
+      <div id="s8-url" style="margin-top:36px;padding:18px 44px;border-radius:999px;background:var(--indigo);color:#fff;font:800 44px 'Inter Display';box-shadow:0 20px 50px rgba(91,91,214,.35)">club.l9itha.ma</div>
+    </div>
+  </section>
+
+  <div class="wipe" id="wipe"><div id="w1" style="background:var(--indigo)"></div><div id="w2" style="background:var(--navy)"></div></div>
+  <div class="vignette"></div>
+  <div id="fade" class="abs" style="inset:0;background:#000;pointer-events:none"></div>
+</div>
+
+<script type="module">
+import { SCENES } from "./cues.js";
+
+/* ---------- moteur de timeline déterministe ---------- */
+const ANIMS = [], HOOKS = [], seen = new WeakMap();
+const E = { out:"cubic-bezier(.16,1,.3,1)", inout:"cubic-bezier(.65,0,.35,1)", back:"cubic-bezier(.34,1.56,.64,1)", lin:"linear", in:"cubic-bezier(.55,0,1,.45)" };
+const $ = s => typeof s === "string" ? document.querySelector(s) : s;
+function tw(el, kf, t0, dur, ease = E.out){
+  el = $(el);
+  const props = new Set(); kf.forEach(k => Object.keys(k).forEach(p => p !== "offset" && p !== "easing" && props.add(p)));
+  let s = seen.get(el); if (!s) seen.set(el, s = new Set());
+  const fresh = [...props].every(p => !s.has(p)); props.forEach(p => s.add(p));
+  const a = el.animate(kf, { delay: t0 * 1000, duration: Math.max(1, dur * 1000), fill: fresh ? "both" : "forwards", easing: ease });
+  a.pause(); ANIMS.push(a); return a;
+}
+const hook = f => HOOKS.push(f);
+const inUp = (el, t, d = .8, y = 60) => tw(el, [{opacity:0, transform:`translateY(${y}px)`},{opacity:1, transform:"none"}], t, d);
+const pop = (el, t, d = .6) => tw(el, [{opacity:0, transform:"scale(.6)"},{opacity:1, transform:"scale(1)"}], t, d, E.back);
+const fadeOut = (el, t, d = .4) => tw(el, [{opacity:1},{opacity:0}], t, d, E.inout);
+const kenburns = (el, t0, t1, s0 = 1, s1 = 1.08) => tw(el, [{transform:`scale(${s0})`},{transform:`scale(${s1})`}], t0, t1 - t0, E.lin);
+window.seek = t => { for (const a of ANIMS) a.currentTime = t * 1000; for (const h of HOOKS) h(t); };
+window.DURATION = 90;
+
+/* visibilité des scènes (avec chevauchement pour les fondus) */
+const OVER = { 30: .5, 76: .5 };
+SCENES.forEach(s => {
+  const el = $("#s" + s.id), pre = OVER[s.t0] || 0, post = OVER[s.t1] || 0;
+  hook(t => el.style.visibility = (t >= s.t0 - pre - .01 && t < s.t1 + post) ? "visible" : "hidden");
+});
+
+/* transitions : volet indigo + navy */
+function wipe(T){
+  tw("#w1", [{transform:"translateX(-130%) skewX(-12deg)"},{transform:"translateX(0) skewX(-12deg)"}], T - .42, .42, E.in);
+  tw("#w1", [{transform:"translateX(0) skewX(-12deg)"},{transform:"translateX(130%) skewX(-12deg)"}], T, .5, E.out);
+  tw("#w2", [{transform:"translateX(-130%) skewX(-12deg)"},{transform:"translateX(0) skewX(-12deg)"}], T - .34, .38, E.in);
+  tw("#w2", [{transform:"translateX(0) skewX(-12deg)"},{transform:"translateX(130%) skewX(-12deg)"}], T + .04, .44, E.out);
+}
+[8, 18, 48, 60, 84].forEach(wipe);
+tw("#fade", [{opacity:1},{opacity:0}], 0, .6, E.lin);
+tw("#fade", [{opacity:0},{opacity:1}], 89.4, .6, E.lin);
+// fondus croisés 30 s et 76 s
+tw("#s4", [{opacity:0, transform:"scale(1.04)"},{opacity:1, transform:"none"}], 29.6, .8);
+tw("#s7", [{opacity:0, transform:"scale(1.04)"},{opacity:1, transform:"none"}], 75.6, .8);
+
+/* glyphes flottants dans les fonds */
+const GL = ["print()", "for", "if", ":", "def", "#", "()", "[ ]", "range", "=", "True", ">>>"];
+document.querySelectorAll(".dots").forEach((d, i) => {
+  for (let k = 0; k < 9; k++){
+    const g = document.createElement("div"); g.className = "glyph"; g.textContent = GL[(i * 5 + k) % GL.length];
+    const x = (k * 233 + i * 97) % 1800, y = (k * 151 + i * 211) % 1000;
+    g.style.left = x + "px"; g.style.top = y + "px"; d.appendChild(g);
+    tw(g, [{transform:"translateY(0)"},{transform:`translateY(${-80 - k * 6}px)`}], 0, 90, E.lin);
+  }
+});
+
+/* ---------- surlignage Python minimal ---------- */
+const KW = /\b(for|in|from|import|if|else|def|return|while)\b/;
+function hl(src){
+  const out = []; const re = /("[^"\n]*"?)|(#.*)|(\b\d+\b)|(\b[A-Za-z_]\w*\b)|([^\w"#]+)/g; let m;
+  while ((m = re.exec(src))){
+    const [tok, s, c, n, id] = m;
+    const esc = tok.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    if (s) out.push(`<span class="s">${esc}</span>`);
+    else if (c) out.push(`<span class="c">${esc}</span>`);
+    else if (n) out.push(`<span class="n">${esc}</span>`);
+    else if (id && KW.test(id) && id.match(KW)[0] === id) out.push(`<span class="k">${esc}</span>`);
+    else if (id && src[re.lastIndex] === "(") out.push(`<span class="f">${esc}</span>`);
+    else out.push(esc);
+  }
+  return out.join("");
+}
+function typer(el, src, t0, t1){
+  el = $(el); let last = -1;
+  hook(t => {
+    const n = Math.max(0, Math.min(src.length, Math.round((t - t0) / (t1 - t0) * src.length)));
+    const blink = t > t1 && Math.floor(t * 2) % 2;
+    const key = n + (blink ? "b" : "");
+    if (key === last) return; last = key;
+    el.innerHTML = hl(src.slice(0, n)) + (blink ? "" : '<span class="caret"></span>');
+  });
+}
+
+/* ---------- dessin Turtle cohérent avec le code affiché ---------- */
+const TURTLE_SRC =
+`from turtle import *
+couleurs = ["indigo", "green", "royalblue", "orange"]
+width(3)
+for i in range(36):
+    color(couleurs[i % 4])
+    forward(220)
+    left(170)`;
+const TURTLE_COLORS = ["#4B0082", "#008000", "#4169E1", "#FFA500"]; // couleurs nommées de Turtle
+function turtleSVG(svg, t0, t1, scale = 1){
+  svg = $(svg); const W = +svg.getAttribute("width"), H = +svg.getAttribute("height");
+  let x = 0, y = 0, h = 0; const pts = [[0, 0]];
+  for (let i = 0; i < 36; i++){ x += 220 * Math.cos(h * Math.PI / 180); y += 220 * Math.sin(h * Math.PI / 180); pts.push([x, y]); h += 170; }
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+  const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  const k = Math.min(W, H) * .84 / span * scale;
+  const ns = "http://www.w3.org/2000/svg";
+  for (let i = 0; i < 36; i++){
+    const l = document.createElementNS(ns, "line");
+    const [ax, ay] = pts[i], [bx, by] = pts[i + 1];
+    l.setAttribute("x1", W / 2 + (ax - cx) * k); l.setAttribute("y1", H / 2 - (ay - cy) * k);
+    l.setAttribute("x2", W / 2 + (bx - cx) * k); l.setAttribute("y2", H / 2 - (by - cy) * k);
+    l.setAttribute("stroke", TURTLE_COLORS[i % 4]); l.setAttribute("stroke-width", 3 * Math.max(1, k * 1.4));
+    l.setAttribute("stroke-linecap", "round"); l.setAttribute("pathLength", "1");
+    l.style.strokeDasharray = "1"; svg.appendChild(l);
+    const d = (t1 - t0) / 36;
+    tw(l, [{strokeDashoffset:1},{strokeDashoffset:0}], t0 + i * d, d * 1.05, E.lin);
+  }
+}
+
+/* ---------- emplacements de capture ---------- */
+function capPH(id, title, desc){
+  const d = document.createElement("div"); d.className = "ph cap";
+  d.innerHTML = `<span class="tag">Capture réelle · ${id}</span><div class="ttl">${title}</div><div class="dsc">${desc}</div>`;
+  return d;
+}
+function sequence(view, items, tEnd){
+  view = $(view);
+  items.forEach((it, i) => {
+    const el = capPH(it[1], it[2], it[3]); view.appendChild(el);
+    const t = it[0], next = i + 1 < items.length ? items[i + 1][0] : tEnd;
+    tw(el, [{opacity:0, transform:"translateX(50px)"},{opacity:1, transform:"none"}], t, .45);
+    if (i + 1 < items.length) tw(el, [{opacity:1},{opacity:0}], next, .35);
+    if (it[4]) tw(el, [{transform:"scale(1)"},{transform:`scale(${it[4]})`}], t + .5, next - t - .6, E.inout);
+    if (it[4]) el.style.transformOrigin = "35% 60%";
+  });
+}
+function steps(box, items, color = "var(--indigo)"){
+  box = $(box);
+  items.forEach(([t, txt], i) => {
+    const s = document.createElement("div"); s.className = "step"; s.innerHTML = `<span class="b"></span>${txt}`; box.appendChild(s);
+    inUp(s, t - .25, .5, 30);
+    tw(s, [{color:"rgba(19,34,74,.25)"},{color}], t, .3);
+    if (i + 1 < items.length) tw(s, [{color},{color:"rgba(19,34,74,.55)"}], items[i + 1][0], .3);
+  });
+}
+
+/* ================= SCÈNE 1 ================= */
+kenburns("#s1-live", 0, 8.4, 1, 1.1);
+tw("#s1-ed", [{opacity:0, transform:"translateY(40px) rotate(-1.5deg)"},{opacity:1, transform:"rotate(-1.5deg)"}], .2, .7);
+typer("#s1-code", TURTLE_SRC, .5, 3.9);
+tw("#s1-cv", [{opacity:0, transform:"translateY(60px) scale(.9) rotate(2deg)"},{opacity:1, transform:"rotate(2deg)"}], 3.6, .7, E.back);
+turtleSVG("#s1-turtle", 4.0, 6.6);
+document.querySelectorAll("#s1-kin .w").forEach((w, i) => tw(w, [{opacity:0, transform:"translateY(70px)", filter:"blur(10px)"},{opacity:1, transform:"none", filter:"blur(0)"}], 5.1 + i * .45, .6));
+
+/* ================= SCÈNE 2 ================= */
+tw("#s2-logo", [{opacity:0, transform:"scale(.82)", filter:"blur(14px)"},{opacity:1, transform:"scale(1)", filter:"blur(0)"}], 8.25, 1.1);
+kenburns("#s2-logo", 9.35, 11.3, 1, 1.04);
+inUp("#s2-tag", 9.9, .8, 40);
+tw("#s2-logo", [{opacity:1},{opacity:0}], 11.3, .4);
+fadeOut("#s2-tag", 11.3);
+tw("#s2-br", [{opacity:0, transform:"perspective(2000px) translateY(500px) rotateX(18deg)"},{opacity:1, transform:"perspective(2000px) rotateX(0)"}], 11.4, 1.1);
+inUp("#s2-eb", 11.8, .6, 20);
+tw("#s2-c1", [{opacity:1},{opacity:0}], 14.8, .4);
+tw("#s2-c2", [{opacity:0, transform:"translateX(60px)"},{opacity:1, transform:"none"}], 14.8, .5);
+kenburns("#s2-br", 12.5, 18.4, 1, 1.05);
+
+/* ================= SCÈNE 3 ================= */
+inUp("#s3-eb", 18.2, .6, 20);
+tw("#s3-j", [{opacity:0, transform:"translateX(-120px) rotate(-3deg)"},{opacity:1, transform:"none"}], 18.4, .8, E.back);
+tw("#s3-p", [{opacity:0, transform:"translateX(120px) rotate(3deg)"},{opacity:1, transform:"none"}], 19.4, .8, E.back);
+tw("#s3-cards", [{transform:"none"},{transform:"translateY(-60px) scale(.86)"}], 24.0, .8, E.inout);
+fadeOut("#s3-eb", 24.0);
+tw("#s3-rail", [{opacity:0},{opacity:1}], 24.2, .4);
+tw("#s3-fill", [{transform:"scaleX(0)"},{transform:"scaleX(1)"}], 24.6, 4.4, E.inout);
+[["Échauffement", 24.8, "var(--green)"], ["Guidé", 26.0, "#27886f"], ["Pratique", 27.4, "var(--blue)"], ["Défi", 28.6, "var(--indigo)"]].forEach(([lbl, t, c], i) => {
+  const x = 60 + i * (1400 / 3);
+  const n = document.createElement("div"); n.className = "abs";
+  n.style.cssText = `left:${x - 26}px;top:19px;width:52px;height:52px;border-radius:50%;background:#fff;border:7px solid ${c};box-shadow:0 8px 20px rgba(19,34,74,.18)`;
+  const l = document.createElement("div"); l.className = "abs display";
+  l.style.cssText = `left:${x - 200}px;width:400px;top:86px;text-align:center;font:800 40px 'Inter Display';color:${c}`;
+  l.textContent = lbl; $("#s3-rail").append(n, l);
+  pop(n, t, .5); inUp(l, t + .05, .5, 20);
+});
+
+/* ================= SCÈNE 4 ================= */
+sequence("#s4-view", [
+  [30.0, "C4-01", "Lecture de la consigne", "Atelier élève : consigne de l'exercice."],
+  [32.0, "C4-02", "L'élève écrit print(\"Bonjour !\")", "Éditeur Python dans le navigateur."],
+  [33.4, "C4-03", "Clic sur « Exécuter » → la console affiche Bonjour !", "Résultat visible immédiatement."],
+  [34.6, "C4-04", "Message d'erreur et indice en français", "Capture du vrai message de la plateforme (ne pas réécrire)."],
+  [37.2, "C4-05", "L'élève corrige son code", "Correction après lecture de l'indice."],
+  [39.6, "C4-06", "« Soumettre » → résultats des tests et points", "La correction présentée comme une aide."],
+  [42.2, "C4-07", "Dessin Turtle qui se construit", "Exercice Turtle réussi."],
+  [44.6, "C4-08", "Reprise du travail sauvegardé", "Le code retrouvé à la séance suivante."],
+], 48.5);
+steps("#s4-steps", [[30.6, "J'essaie"], [34.4, "Je comprends"], [38.6, "Je corrige"], [42.6, "Je progresse"]]);
+tw("#s4-chip", [{opacity:0, transform:"translateY(40px) scale(.95)"},{opacity:1, transform:"none"}], 32.1, .5, E.back);
+tw("#s4-out", [{opacity:0},{opacity:1}], 33.7, .2);
+tw("#s4-chip", [{opacity:1},{opacity:0}], 35.6, .4);
+tw("#s4-save", [{opacity:0, transform:"translateY(40px)"},{opacity:1, transform:"none"}], 44.9, .5, E.back);
+kenburns("#s4-br", 30, 48.5, 1, 1.03);
+
+/* ================= SCÈNE 5 ================= */
+kenburns("#s5-a", 48, 54, 1.06, 1);
+tw("#s5-b", [{opacity:0},{opacity:1}], 53.5, .6, E.inout);
+kenburns("#s5-b", 53.5, 60.4, 1, 1.07);
+inUp("#s5-eb", 48.6, .6, 20);
+[["#s5-p1", 52.2], ["#s5-p2", 53.6], ["#s5-p3", 56.0]].forEach(([s, t]) => pop(s, t, .6));
+
+/* ================= SCÈNE 6 ================= */
+sequence("#s6-view", [
+  [60.0, "C6-01", "Choix du groupe et de la séance", "Espace professeur, compte et groupe fictifs."],
+  [62.4, "C6-02", "Cartes des séances", "Vue d'ensemble des séances du groupe."],
+  [64.4, "C6-03", "Présentation d'un support de cours", "Support projeté en classe."],
+  [67.4, "C6-04", "Déblocage des exercices · code de présence", "Le professeur ouvre les activités."],
+  [70.0, "C6-05", "Tableau de suivi : présences, progression, résultats", "Zoom lisible · détail des essais par exercice.", 1.25],
+  [73.8, "C6-06", "Administration : import Excel et tickets de connexion", "Aperçu bref (élèves fictifs)."],
+], 76.5);
+steps("#s6-steps", [[60.6, "Organiser le club"], [66.8, "Animer les séances"], [70.4, "Suivre les élèves"]]);
+tw("#s6-lens", [{opacity:0, transform:"scale(1.6)"},{opacity:1, transform:"scale(1)"}], 71.0, .6, E.back);
+tw("#s6-lens", [{opacity:1},{opacity:0}], 73.4, .3);
+
+/* ================= SCÈNE 7 ================= */
+const tiles = [
+  ["cap", "C7-01", "Quiz terminé"],
+  ["cap", "C7-02", "Un programme qui fonctionne"],
+  ["turtle"],
+  ["live", "V7-01", "Échange élèves – professeur"],
+];
+tiles.forEach((tl, i) => {
+  const x = (i % 2) * 870, y = Math.floor(i / 2) * 460;
+  let el;
+  if (tl[0] === "turtle"){
+    el = document.createElement("div"); el.className = "canvas";
+    el.innerHTML = `<div class="bar">Turtle</div><svg id="s7-turtle" class="abs" style="left:0;top:46px" width="830" height="384"></svg>`;
+  } else {
+    el = document.createElement("div"); el.className = "ph " + tl[0];
+    el.innerHTML = `<span class="tag">${tl[0] === "live" ? "Plan vidéo" : "Capture réelle"} · ${tl[1]}</span><div class="ttl" style="font-size:32px">${tl[2]}</div>`;
+  }
+  el.style.left = x + "px"; el.style.top = y + "px"; el.style.width = "830px"; el.style.height = "430px";
+  $("#s7-grid").appendChild(el);
+  tw(el, [{opacity:0, transform:"scale(.85) rotate(" + (i % 2 ? 2 : -2) + "deg)"},{opacity:1, transform:"none"}], 76.2 + i * .35, .6, E.back);
+});
+turtleSVG("#s7-turtle", 76.9, 78.6, 1);
+kenburns("#s7-grid", 76, 84, 1, 1.05);
+tw("#s7-veil", [{opacity:0},{opacity:1}], 79.2, .5);
+tw("#s7-t1", [{opacity:0, transform:"translateY(50px)", filter:"blur(8px)"},{opacity:1, transform:"none", filter:"blur(0)"}], 79.5, .7);
+tw("#s7-t2", [{opacity:0, transform:"translateY(50px)", filter:"blur(8px)"},{opacity:1, transform:"none", filter:"blur(0)"}], 81.7, .7);
+
+/* ================= SCÈNE 8 ================= */
+pop("#s8-logo", 84.4, .7);
+inUp("#s8-name", 84.7, .7, 40);
+inUp("#s8-tag", 85.2, .6, 30);
+inUp("#s8-cta1", 85.8, .6, 30);
+inUp("#s8-cta2", 86.2, .6, 30);
+pop("#s8-url", 86.7, .6);
+
+window.READY = true;
+seek(0);
+</script>
+</body>
+</html>

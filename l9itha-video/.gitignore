@@ -1,0 +1,4 @@
+out/
+frames/
+*.wav
+node_modules/
