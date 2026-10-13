@@ -82,8 +82,9 @@ fichier `assets/plans/<ID>.mp4` correspondant : `./build.sh` le découpe en
 images (`frames/<ID>/`) et l'intègre à l'emplacement, sous les titres animés.
 
 ### Voix off
-**Actuelle : voix masculine française provisoire**, générée localement
-(`audio/make_voice.py`, modèle « tom » de Piper). Le nom se prononce « Lqitha
+**Uniquement la voix clonée d'Abdelmoumen** (aucune voix de synthèse de
+remplacement). `audio/make_voice.py` (voix « tom » de Piper) ne sert plus
+qu'aux essais manuels. Le nom se prononce « Lqitha
 Club ». Les sous-titres sont recalés automatiquement sur les pauses de la voix
 (`render/subs_timed.json`).
 

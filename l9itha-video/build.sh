@@ -26,12 +26,9 @@ if [ ! -f $A ] || [ -n "$(find render/stage.html render/cues.js frames assets/ca
   node render/render.mjs $A 30
 fi
 python3 audio/make_audio.py
-# Voix off : prises par scène (voix clonée) en priorité, sinon voix de synthèse provisoire.
+# Voix off : uniquement la voix clonée (prises par scène). Pas de voix de synthèse de remplacement.
 if compgen -G "assets/voix/scenes/scene_*" > /dev/null; then python3 audio/place_voice.py
-elif [ ! -f assets/voix/voix_off.wav ]; then
-  python3 -c "import sherpa_onnx" 2>/dev/null && python3 audio/make_voice.py \
-    || echo "⚠ Aucune voix off disponible : version de relecture sans voix." >&2
-fi
+else rm -f assets/voix/voix_off.wav; echo "⚠ Prises de la voix clonée absentes : vidéo sans voix off." >&2; fi
 node subtitles/make_subs.mjs
 
 VO=assets/voix/voix_off.wav   # voix off calée sur la timeline (90 s)
