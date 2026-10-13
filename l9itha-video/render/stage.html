@@ -46,6 +46,9 @@
   .ph.filmed{border:none}
   .ph.filmed > :not(img.plan){display:none}
   .browser .view .ph.filmed{inset:0;border-radius:0}
+  .ph.live > .tag, .ph.live > .ttl, .ph.live > .dsc{display:none}
+  .ph.logo.filmed{background:none}
+  .ph.logo.filmed img.plan{object-fit:contain}
 
   /* Fenêtre navigateur */
   .browser{position:absolute;border-radius:22px;background:#fff;box-shadow:0 40px 90px rgba(19,34,74,.22),0 8px 20px rgba(19,34,74,.08);overflow:hidden}
@@ -129,7 +132,7 @@
   <section class="scene" id="s2">
     <div class="bg"></div><div class="dots"></div>
     <div id="s2-logo" class="abs" style="left:660px;top:250px;width:600px;height:400px;display:flex;flex-direction:column;align-items:center;gap:30px">
-      <div class="ph cap" style="position:relative;width:420px;height:200px;padding:20px">
+      <div class="ph cap logo" style="position:relative;width:420px;height:200px;padding:20px">
         <span class="tag">Logo officiel</span>
         <div class="dsc" style="font-size:20px">assets/logo/ — à fournir</div>
       </div>
@@ -264,7 +267,7 @@
   <section class="scene" id="s8">
     <div class="bg"></div><div class="dots"></div>
     <div class="abs" style="left:0;right:0;top:70px;display:flex;flex-direction:column;align-items:center">
-      <div class="ph cap" id="s8-logo" style="position:relative;width:300px;height:130px;padding:14px;gap:6px">
+      <div class="ph cap logo" id="s8-logo" style="position:relative;width:300px;height:130px;padding:14px;gap:6px">
         <span class="tag" style="font-size:15px">Logo officiel</span>
       </div>
       <div class="display" id="s8-name" style="font:900 112px 'Inter Display';letter-spacing:-.02em;margin-top:26px">L9ITHA.Club</div>
@@ -561,7 +564,14 @@ pop("#s8-url", 86.7, .6);
 const PLANS = [["#s1-live", "V1-01", 0], ["#s5-a", "V5-01", 48], ["#s5-b", "V5-02", 53.5], ["#plan-V7-01", "V7-01", 76.2]];
 const plansReady = Promise.all(PLANS.map(async ([sel, id, t0]) => {
   const r = await fetch(`../frames/${id}/index.json`).catch(() => null);
-  if (!r || !r.ok) return;
+  if (!r || !r.ok){
+    // Pas de plan vidéo : image fixe de remplacement si assets/captures/<ID>.png existe.
+    const f = await fetch(`../assets/captures/${id}.png`, { method: "HEAD" }).catch(() => null);
+    if (!f || !f.ok) return;
+    const img = document.createElement("img"); img.className = "plan"; img.src = `../assets/captures/${id}.png`;
+    $(sel).prepend(img); $(sel).classList.add("filmed"); await img.decode().catch(() => {});
+    return;
+  }
   const { n, fps } = await r.json();
   const img = document.createElement("img"); img.className = "plan";
   $(sel).prepend(img); $(sel).classList.add("filmed");
@@ -583,7 +593,16 @@ const capsReady = Promise.all([...document.querySelectorAll(".ph.cap")].map(asyn
   await img.decode().catch(() => {});
 }));
 
-Promise.all([plansReady, capsReady]).then(() => { seek(0); window.READY = true; });
+// Logo officiel : assets/logo/logo.png (transparent) ; sans fichier, l'emplacement disparaît.
+const logoReady = fetch("../assets/logo/logo.png", { method: "HEAD" }).catch(() => null).then(async r => {
+  for (const el of document.querySelectorAll(".ph.logo")){
+    if (!r || !r.ok){ el.style.display = "none"; continue; }
+    const img = document.createElement("img"); img.className = "plan"; img.src = "../assets/logo/logo.png";
+    el.prepend(img); el.classList.add("filmed"); await img.decode().catch(() => {});
+  }
+});
+
+Promise.all([plansReady, capsReady, logoReady]).then(() => { seek(0); window.READY = true; });
 </script>
 </body>
 </html>

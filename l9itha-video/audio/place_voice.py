@@ -41,6 +41,7 @@ for sc in SCENES:
     if len(x) / SR > window:
         tempo = min(1.15, len(x) / SR / window)
         x = trim(load(f, tempo), SR)
+    n = int(.015 * SR); x = x.copy(); x[:n] *= np.linspace(0, 1, n); x[-n:] *= np.linspace(1, 0, n)  # pas de clic aux raccords
     d = len(x) / SR
     flag = "  ⚠ déborde de la fenêtre" if d > window + .05 else ""
     i0 = int(start * SR); track[i0:i0 + len(x)] += x[: len(track) - i0]
