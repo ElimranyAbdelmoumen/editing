@@ -133,5 +133,5 @@ YouTube Audio Library), positive, autour de 100 BPM.
   - Atelier : `print("Bonjour !")` → `Bonjour !`
   - Correction : `for i in range(3)` sans « : » (cadre rouge, sans message
     inventé), ajout du « : », puis 3 × `Je progresse !`
-- Aucun témoignage, aucune statistique, aucun partenaire, aucun espace parent,
+- Aucun témoignage, aucune statistique, aucun partenaire extérieur (le logo et le nom de Madariss Ibn Mashish, l'école du club, apparaissent dans les captures avec son accord), aucun espace parent,
   aucun terme technique (Docker, API, Judge0, Pyodide).
