@@ -34,7 +34,12 @@ npm install && ./build.sh
 - `assets/logo/` : logo officiel en **SVG ou PNG transparent** (version claire + version sur fond sombre). Il sera intégré tel quel, sans être redessiné.
 
 ### Captures réelles de la plateforme (comptes et noms fictifs)
-Format : vidéo d'écran 1920×1080 (ou plus), 30 i/s, navigateur en plein écran, zoom 125 %.
+Une image `assets/captures/<ID>.png` remplace automatiquement l'emplacement
+correspondant (recadrée aux proportions de l'emplacement, remplissage en bas
+avec la couleur de la page). **Déjà intégrées** : C2-01, C2-02 (nom d'élève
+remplacé par « Yassine Alami »), C6-01, C6-02, C6-04, C6-05.
+Format conseillé pour les autres : capture 1920×1080, navigateur plein écran,
+noms d'élèves fictifs.
 
 | ID | Moment | Contenu |
 |---|---|---|

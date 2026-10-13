@@ -43,7 +43,9 @@
   .ph .dsc{font:500 24px "Inter";opacity:.75;max-width:1000px;line-height:1.35}
   .ph .ico{width:64px;height:64px;opacity:.7}
   .ph img.plan{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ph.filmed{border:none}
   .ph.filmed > :not(img.plan){display:none}
+  .browser .view .ph.filmed{inset:0;border-radius:0}
 
   /* Fenêtre navigateur */
   .browser{position:absolute;border-radius:22px;background:#fff;box-shadow:0 40px 90px rgba(19,34,74,.22),0 8px 20px rgba(19,34,74,.08);overflow:hidden}
@@ -416,7 +418,7 @@ function sequence(view, items, tEnd){
     tw(el, [{opacity:0, transform:"translateX(50px)"},{opacity:1, transform:"none"}], t, .45);
     if (i + 1 < items.length) tw(el, [{opacity:1},{opacity:0}], next, .35);
     if (it[4]) tw(el, [{transform:"scale(1)"},{transform:`scale(${it[4]})`}], t + .5, next - t - .6, E.inout);
-    if (it[4]) el.style.transformOrigin = "35% 60%";
+    if (it[4]) el.style.transformOrigin = "0% 60%";
   });
 }
 function steps(box, items, color = "var(--indigo)"){
@@ -511,7 +513,7 @@ sequence("#s6-view", [
   [62.4, "C6-02", "Cartes des séances", "Vue d'ensemble des séances du groupe."],
   [64.4, "C6-03", "Présentation d'un support de cours", "Support projeté en classe."],
   [67.4, "C6-04", "Déblocage des exercices · code de présence", "Le professeur ouvre les activités."],
-  [70.0, "C6-05", "Tableau de suivi : présences, progression, résultats", "Zoom lisible · détail des essais par exercice.", 1.25],
+  [70.0, "C6-05", "Tableau de suivi : présences, progression, résultats", "Zoom lisible · détail des essais par exercice.", 1.12],
   [73.8, "C6-06", "Administration : import Excel et tickets de connexion", "Aperçu bref (élèves fictifs)."],
 ], 76.5);
 steps("#s6-steps", [[60.6, "Organiser le club"], [66.8, "Animer les séances"], [70.4, "Suivre les élèves"]]);
@@ -570,7 +572,18 @@ const plansReady = Promise.all(PLANS.map(async ([sel, id, t0]) => {
   });
 }));
 
-plansReady.then(() => { seek(0); window.READY = true; });
+/* ================= CAPTURES RÉELLES ================= */
+// assets/captures/<ID>.png (ex. C4-02.png) remplace l'emplacement « Capture réelle · <ID> ».
+const capsReady = Promise.all([...document.querySelectorAll(".ph.cap")].map(async el => {
+  const id = (el.querySelector(".tag")?.textContent.match(/C\d-\d\d/) || [])[0];
+  const r = id && await fetch(`../assets/captures/${id}.png`, { method: "HEAD" }).catch(() => null);
+  if (!r || !r.ok) return;
+  const img = document.createElement("img"); img.className = "plan"; img.src = `../assets/captures/${id}.png`;
+  el.prepend(img); el.classList.add("filmed");
+  await img.decode().catch(() => {});
+}));
+
+Promise.all([plansReady, capsReady]).then(() => { seek(0); window.READY = true; });
 </script>
 </body>
 </html>

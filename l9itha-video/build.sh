@@ -22,7 +22,7 @@ for P in assets/plans/*.mp4; do
   fi
 done
 A=out/animatique_sans_son.mp4
-if [ ! -f $A ] || [ -n "$(find render/stage.html render/cues.js frames -newer $A -type f 2>/dev/null | head -1)" ]; then
+if [ ! -f $A ] || [ -n "$(find render/stage.html render/cues.js frames assets/captures -newer $A -type f 2>/dev/null | head -1)" ]; then
   node render/render.mjs $A 30
 fi
 python3 audio/make_audio.py
