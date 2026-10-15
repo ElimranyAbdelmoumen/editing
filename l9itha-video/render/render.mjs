@@ -1,5 +1,6 @@
 // Rendu déterministe de stage.html → vidéo (image par image, 30 i/s).
 // Usage : node render/render.mjs <sortie.mp4> [fps] [début] [fin]
+// STAGE=story/stage.html pour une autre page (taille lue dans window.SIZE).
 import { chromium } from "playwright";
 import { spawn } from "node:child_process";
 import http from "node:http";
@@ -20,8 +21,10 @@ const port = server.address().port;
 const browser = await chromium.launch({ });
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
 page.on("pageerror", e => console.error("pageerror", e));
-await page.goto(`http://localhost:${port}/render/stage.html`);
+await page.goto(`http://localhost:${port}/${process.env.STAGE || "render/stage.html"}`);
 await page.waitForFunction(() => window.READY === true);
+const size = await page.evaluate(() => window.SIZE);
+if (size) await page.setViewportSize(size);
 await page.evaluate(() => document.fonts.ready);
 const duration = await page.evaluate(() => window.DURATION);
 const t0 = fromArg ? +fromArg : 0, t1 = toArg ? +toArg : duration;

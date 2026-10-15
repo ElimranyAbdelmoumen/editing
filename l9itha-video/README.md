@@ -21,6 +21,12 @@ identifiés** (`C…` = capture réelle, `V…` = plan vidéo).
 npm install && ./build.sh
 ```
 
+## Version « story » 9:16
+
+`story/` : version verticale de 41 s racontée comme une histoire (motion
+comic), même voix « Julian ». Voir `story/storyboard.md` ; fabrication :
+`./story/build.sh` → `story/out/L9ITHA_Club_story_9x16.mp4`.
+
 ## Livrables générés (`out/`, non versionnés)
 
 - `L9ITHA_Club_90s.mp4` : version principale, sans sous-titres

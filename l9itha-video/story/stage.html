@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>L9ITHA.Club : story</title>
+<style>
+  :root{--indigo:#5B5BD6;--green:#1F9D63;--navy:#13224A;--ink:#0b1020}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:var(--ink)}
+  body{font-family:"Inter",sans-serif;-webkit-font-smoothing:antialiased}
+  #stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink)}
+  .sc{position:absolute;inset:0;overflow:hidden;visibility:hidden;will-change:transform}
+  .art{position:absolute;left:0;top:-5px;width:1080px;height:1930px;object-fit:cover}
+  .shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,16,32,.62) 0,rgba(11,16,32,.18) 30%,transparent 46%)}
+  .abs{position:absolute}
+  .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 58%,rgba(5,8,20,.45) 100%)}
+
+  /* carte de code */
+  .card{position:absolute;left:150px;width:780px;border-radius:30px;background:#0f1630;box-shadow:0 30px 80px rgba(0,0,0,.45);overflow:hidden;border:3px solid rgba(255,255,255,.08)}
+  .card .hd{height:58px;display:flex;align-items:center;gap:12px;padding:0 26px;background:#161f40;font:600 22px "DejaVu Sans Mono",monospace;color:#8f9bc7}
+  .card .hd i{width:16px;height:16px;border-radius:50%;display:block}
+  .card pre{padding:26px 32px 10px;font:500 38px/1.45 "DejaVu Sans Mono",monospace;color:#e8ecff;white-space:pre;min-height:90px}
+  .card .out{padding:4px 32px 26px;font:600 36px/1.45 "DejaVu Sans Mono",monospace;color:#7CF0B3}
+  .card .out small{display:block;font:700 18px "Inter";letter-spacing:.14em;color:#6b77a8;margin-bottom:6px}
+  .k{color:#B8A6FF}.s{color:#9BE7A6}.n{color:#FFC27A}.f{color:#7FC4FF}
+  .err{outline:4px solid #FF5A6A;outline-offset:-4px}
+  .chip{position:absolute;display:flex;align-items:center;gap:14px;padding:16px 28px;border-radius:999px;font:800 34px "Inter";box-shadow:0 18px 40px rgba(0,0,0,.35)}
+  .chip svg{width:38px;height:38px}
+
+  /* sous-titres mot à mot */
+  #cap{position:absolute;left:50px;right:50px;top:1390px;text-align:center;font:900 74px/1.18 "Inter Display","Inter",sans-serif;color:#fff;letter-spacing:-.01em}
+  #cap .w{display:inline-block;padding:2px 12px;margin:0 2px;border-radius:16px;text-shadow:0 4px 0 rgba(11,16,32,.55),0 0 22px rgba(11,16,32,.65)}
+  #cap .w.on{background:var(--indigo);text-shadow:none;box-shadow:0 10px 30px rgba(91,91,214,.5)}
+
+  /* carte de fin */
+  #end{position:absolute;left:0;right:0;top:210px;display:flex;flex-direction:column;align-items:center;text-align:center;color:#fff}
+  #end .name{font:900 138px "Inter Display";letter-spacing:-.03em;text-shadow:0 8px 30px rgba(19,34,74,.55)}
+  #end .tag{margin-top:6px;font:800 52px/1.2 "Inter Display";max-width:900px;text-shadow:0 6px 24px rgba(19,34,74,.6)}
+  #end .url{margin-top:38px;padding:20px 52px;border-radius:999px;background:var(--indigo);font:800 50px "Inter Display";box-shadow:0 20px 50px rgba(19,34,74,.45)}
+  #end .join{margin-top:26px;font:700 40px "Inter";text-shadow:0 4px 18px rgba(19,34,74,.7)}
+
+  #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+  #fade{position:absolute;inset:0;background:#000;pointer-events:none}
+  .spark{position:absolute;width:18px;height:18px;border-radius:50%}
+</style>
+</head>
+<body>
+<div id="stage">
+  <section class="sc" id="sc1"><img class="art" src="assets/s1.png"><div class="shade"></div></section>
+  <section class="sc" id="sc2"><img class="art" src="assets/s2.png"><div class="shade"></div></section>
+  <section class="sc" id="sc3"><img class="art" src="assets/s3.png"><div class="shade"></div>
+    <div class="card" id="c3" style="top:900px">
+      <div class="hd"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#06d6a0"></i><span style="margin-left:10px">main.py</span></div>
+      <pre id="c3code"></pre>
+      <div class="out" id="c3out"><small>CONSOLE</small>Bonjour !</div>
+    </div>
+  </section>
+  <section class="sc" id="sc4"><img class="art" src="assets/s4.png"><div class="shade"></div>
+    <div class="card" id="c4" style="top:880px">
+      <div class="hd"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#06d6a0"></i><span style="margin-left:10px">main.py</span></div>
+      <pre><span id="c4l1"><span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>)</span>
+    <span class="f">print</span>(<span class="s">"Je progresse !"</span>)</pre>
+      <div style="height:22px"></div>
+    </div>
+    <div class="chip" id="hint" style="left:390px;top:1130px;background:#FFF4C2;color:#3b2f00">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C98A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>Indice
+    </div>
+  </section>
+  <section class="sc" id="sc5"><img class="art" src="assets/s5.png"><div class="shade"></div>
+    <div class="card" id="c5" style="top:900px">
+      <div class="hd"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#06d6a0"></i><span style="margin-left:10px">main.py</span></div>
+      <pre><span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">3</span>)<span id="colon" style="display:inline-block;color:#4BE38F;font-weight:800">:</span>
+    <span class="f">print</span>(<span class="s">"Je progresse !"</span>)</pre>
+      <div class="out" id="c5out"><small>CONSOLE</small><span id="o1">Je progresse !</span><br><span id="o2">Je progresse !</span><br><span id="o3">Je progresse !</span></div>
+    </div>
+  </section>
+  <section class="sc" id="sc6"><img class="art" src="assets/s6.png"><div class="shade"></div>
+    <div class="chip" id="pts" style="left:560px;top:330px;background:#0f1630;color:#fff;border:3px solid #7C83FF">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#9AA2FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>20 / 20 pts
+    </div>
+    <div id="confetti" class="abs" style="left:0;top:0;width:1080px;height:1920px"></div>
+  </section>
+  <section class="sc" id="sc7"><img class="art" src="assets/s7.png"><div class="shade"></div>
+    <div id="dash" class="abs" style="left:150px;top:880px;width:780px">
+      <div class="chip" style="position:relative;display:inline-flex;margin:0 0 18px 10px;background:#0f1630;color:#fff;font-size:28px;padding:12px 24px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4BE38F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Suivi des élèves
+      </div>
+      <img src="../assets/captures/C7-01.png" style="width:780px;border-radius:24px;box-shadow:0 30px 70px rgba(0,0,0,.5);border:3px solid rgba(255,255,255,.12);display:block">
+    </div>
+  </section>
+  <section class="sc" id="sc8"><img class="art" src="assets/s8.png"><div class="shade"></div></section>
+  <section class="sc" id="sc9"><img class="art" src="assets/s9.png">
+    <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(19,34,74,.35) 0,transparent 42%)"></div>
+    <div id="end">
+      <div class="name" id="e1">L9ITHA.Club</div>
+      <div class="tag" id="e2">Apprends, pratique et crée<br>avec Python.</div>
+      <div class="url" id="e3">club.l9itha.ma</div>
+      <div class="join" id="e4">Rejoignez le club de votre école.</div>
+    </div>
+  </section>
+  <div class="vig"></div>
+  <div id="cap"></div>
+  <div id="flash"></div>
+  <div id="fade"></div>
+</div>
+
+<script type="module">
+const TL = await (await fetch("timeline.json")).json();
+const S = Object.fromEntries(TL.scenes.map(s => [s.id, s]));
+
+/* ---------- moteur de timeline déterministe (même principe que render/stage.html) ---------- */
+const ANIMS = [], HOOKS = [], seen = new WeakMap();
+const E = { out:"cubic-bezier(.16,1,.3,1)", inout:"cubic-bezier(.65,0,.35,1)", back:"cubic-bezier(.34,1.56,.64,1)", lin:"linear", in:"cubic-bezier(.55,0,1,.45)" };
+const $ = s => typeof s === "string" ? document.querySelector(s) : s;
+function tw(el, kf, t0, dur, ease = E.out){
+  el = $(el);
+  const props = new Set(); kf.forEach(k => Object.keys(k).forEach(p => p !== "offset" && p !== "easing" && props.add(p)));
+  let s = seen.get(el); if (!s) seen.set(el, s = new Set());
+  const fresh = [...props].every(p => !s.has(p)); props.forEach(p => s.add(p));
+  const a = el.animate(kf, { delay: t0 * 1000, duration: Math.max(1, dur * 1000), fill: fresh ? "both" : "forwards", easing: ease });
+  a.pause(); ANIMS.push(a); return a;
+}
+const hook = f => HOOKS.push(f);
+const pop = (el, t, d = .55) => tw(el, [{opacity:0, transform:"scale(.5)"},{opacity:1, transform:"scale(1)"}], t, d, E.back);
+const inUp = (el, t, d = .6, y = 80) => tw(el, [{opacity:0, transform:`translateY(${y}px)`},{opacity:1, transform:"none"}], t, d);
+window.SIZE = { width: 1080, height: 1920 };
+window.DURATION = TL.duration;
+window.seek = t => { for (const a of ANIMS) a.currentTime = t * 1000; for (const h of HOOKS) h(t); };
+
+/* ---------- scènes : visibilité, transitions, mouvements de caméra ---------- */
+const X = .45; // durée des transitions
+TL.scenes.forEach(s => {
+  const el = $("#sc" + s.id);
+  hook(t => el.style.visibility = (t >= s.t0 - X - .02 && t < s.t1 + .02) ? "visible" : "hidden");
+});
+// entrées : glissé latéral flouté, alterné ; flash blanc sur la 5 ; zoom traversant sur la 9
+TL.scenes.slice(1).forEach(s => {
+  const T = s.t0, el = "#sc" + s.id, prev = "#sc" + (s.id - 1), dir = s.id % 2 ? 1 : -1;
+  if (s.id === 5){
+    tw("#flash", [{opacity:0},{opacity:.95, offset:.45},{opacity:0}], T - .2, .6, E.lin);
+    tw(el, [{opacity:0},{opacity:1}], T - .05, .1, E.lin);
+  } else if (s.id === 9){
+    tw(el, [{opacity:0, transform:"scale(1.25)", filter:"blur(14px)"},{opacity:1, transform:"none", filter:"blur(0)"}], T - X, X + .15);
+  } else {
+    tw(el, [{transform:`translateX(${dir * 100}%)`, filter:"blur(16px)"},{transform:"none", filter:"blur(0)"}], T - X, X, E.out);
+    tw(prev, [{transform:"none", filter:"brightness(1)"},{transform:`translateX(${-dir * 28}%)`, filter:"brightness(.55)"}], T - X, X, E.out);
+  }
+});
+const kb = (id, from, to, origin, ease = E.lin, extra = 0) => {
+  const s = S[id], img = $(`#sc${id} .art`); img.style.transformOrigin = origin;
+  tw(img, [{transform:from},{transform:to}], s.t0 - X - extra, s.t1 - s.t0 + X + extra, ease);
+};
+kb(1, "scale(1.04)", "scale(1.18)", "45% 28%");
+kb(2, "scale(1.22) translateX(3%)", "scale(1.22) translateX(-3%)", "50% 40%");
+kb(3, "scale(1.06)", "scale(1.2)", "38% 30%");
+kb(4, "scale(1.1) translateY(1%)", "scale(1.24) translateY(-1%)", "45% 32%");
+kb(5, "scale(1.34)", "scale(1.12)", "50% 40%", E.out);
+kb(6, "scale(1.26)", "scale(1.06)", "50% 38%", E.out);
+kb(7, "scale(1.2) translateY(3.5%)", "scale(1.2) translateY(-3%)", "50% 50%");
+kb(8, "scale(1.05)", "scale(1.18)", "52% 42%");
+kb(9, "scale(1.22)", "scale(1.02)", "50% 72%", E.out);
+// secousse de caméra quand l'idée « prend vie »
+tw("#sc5", [0, 1, 2, 3, 4, 5, 6, 7, 8].map((k, i, a) => ({transform:`translate(${i === a.length - 1 ? 0 : Math.sin(k * 2.3) * 14}px, ${i === a.length - 1 ? 0 : Math.cos(k * 3.1) * 10}px)`})), S[5].t0, .5, E.lin);
+
+/* ---------- habillages animés ---------- */
+const HL = src => src.replace(/("[^"]*")/g, '<span class="s">$1</span>').replace(/\b(print)\b/g, '<span class="f">$1</span>');
+function typer(el, src, t0, t1){
+  el = $(el); let last = -1;
+  hook(t => { const n = Math.max(0, Math.min(src.length, Math.floor((t - t0) / (t1 - t0) * src.length)));
+    if (n !== last){ last = n; el.innerHTML = HL(src.slice(0, n)) + (t >= t0 && t < t1 + .4 ? '<span style="background:#7FC4FF;color:#7FC4FF">|</span>' : ""); } });
+}
+// scène 3 : première ligne de code
+inUp("#c3", S[3].t0 + .15);
+typer("#c3code", 'print("Bonjour !")', S[3].t0 + .45, S[3].t0 + 1.55);
+tw("#c3out", [{opacity:0, transform:"translateY(14px)"},{opacity:1, transform:"none"}], S[3].t0 + 1.7, .35);
+tw("#c3out", [{textShadow:"0 0 0 rgba(124,240,179,0)"},{textShadow:"0 0 26px rgba(124,240,179,.9)"},{textShadow:"0 0 6px rgba(124,240,179,.3)"}], S[3].t0 + 1.7, 1.0, E.lin);
+// scène 4 : erreur (deux-points manquant) puis indice
+inUp("#c4", S[4].t0 + .1);
+tw("#c4", [{borderColor:"rgba(255,255,255,.08)"},{borderColor:"#FF5A6A"}], S[4].t0 + .65, .2, E.lin);
+tw("#c4l1", [{background:"rgba(255,90,106,0)"},{background:"rgba(255,90,106,.28)"}], S[4].t0 + .65, .25, E.lin);
+pop("#hint", S[4].t0 + 1.55);
+tw("#hint", [{transform:"translateY(0)"},{transform:"translateY(-10px)"},{transform:"translateY(0)"}], S[4].t0 + 2.1, 1.4, E.inout);
+// scène 5 : le « : » arrive, le programme tourne
+tw("#c5", [{opacity:0, transform:"translateY(60px) scale(.96)"},{opacity:1, transform:"none"}], S[5].t0 + .05, .45);
+tw("#colon", [{opacity:0, transform:"scale(3)"},{opacity:1, transform:"scale(1)"}], S[5].t0 + .45, .45, E.back);
+["#o1", "#o2", "#o3"].forEach((o, i) => tw(o, [{opacity:0},{opacity:1}], S[5].t0 + .95 + i * .22, .2, E.lin));
+// scène 6 : points + confettis
+pop("#pts", S[6].t0 + 1.0, .6);
+const CF = ["#5B5BD6", "#1F9D63", "#4169E1", "#FFA500", "#FFD84D"];
+for (let i = 0; i < 26; i++){
+  const d = document.createElement("div"); d.className = "spark"; d.style.background = CF[i % 5];
+  d.style.left = "760px"; d.style.top = "370px"; $("#confetti").appendChild(d);
+  const a = i / 26 * Math.PI * 2 + Math.sin(i) * .3, r = 220 + (i * 53) % 180;
+  tw(d, [{opacity:1, transform:"translate(0,0) scale(1)"},{opacity:0, transform:`translate(${Math.cos(a) * r}px, ${Math.sin(a) * r + 140}px) scale(.4)`}], S[6].t0 + 1.05, 1.1, E.out);
+}
+// scène 7 : le vrai tableau de suivi de la plateforme
+tw("#dash", [{opacity:0, transform:"translateY(120px) rotate(-3deg)"},{opacity:1, transform:"rotate(-1.5deg)"}], S[7].t0 + .5, .7);
+// scène 9 : carte de fin calée sur la voix
+const w9 = S[9].words, at = w => (w9.find(x => x.w.startsWith(w)) || w9[0]).s;
+tw("#e1", [{opacity:0, transform:"translateY(40px) scale(.92)"},{opacity:1, transform:"none"}], at("L9ITHA") - .15, .6);
+inUp("#e2", at("Apprends") - .1, .55, 40);
+pop("#e3", at("Python") + .1);
+inUp("#e4", at("Rejoignez") - .1, .5, 30);
+
+/* ---------- sous-titres mot à mot (scènes 1 à 8) ---------- */
+const groups = [];
+TL.scenes.filter(s => s.id < 9).forEach(s => {
+  let g = [];
+  s.words.forEach((w, i) => {
+    const len = g.map(x => x.w).join(" ").length;
+    if (g.length && (g.length >= 3 || len + 1 + w.w.length > 17)){
+      groups.push({ words: g, s: g[0].s - .12, e: w.s - .12 }); g = [];
+    }
+    g.push(w);
+    const last = i === s.words.length - 1;
+    if (last || /[,.?…:!]$/.test(w.w)){
+      const nxt = s.words[i + 1];
+      groups.push({ words: g, s: g[0].s - .12, e: last ? Math.min(g[g.length - 1].e + .45, s.t1 - .1) : nxt.s - .12 }); g = [];
+    }
+  });
+});
+const cap = $("#cap"); let cur = null;
+groups.forEach(g => { g.el = document.createElement("div"); g.el.innerHTML = g.words.map(w => `<span class="w">${w.w}</span>`).join(" "); g.spans = [...g.el.querySelectorAll(".w")]; });
+hook(t => {
+  const g = groups.find(g => t >= g.s && t < g.e) || null;
+  if (g !== cur){ cap.innerHTML = ""; if (g) cap.appendChild(g.el); cur = g; }
+  if (g){
+    g.spans.forEach((sp, i) => sp.classList.toggle("on", t >= g.words[i].s - .03 && t < (g.words[i + 1]?.s ?? g.e)));
+    const k = Math.min(1, (t - g.s) / .14); g.el.style.transform = `scale(${.86 + .14 * k})`; g.el.style.opacity = k;
+  }
+});
+
+tw("#fade", [{opacity:1},{opacity:0}], 0, .45, E.lin);
+tw("#fade", [{opacity:0},{opacity:1}], TL.duration - .45, .45, E.lin);
+await Promise.all([...document.images].map(i => i.decode().catch(() => {})));
+await document.fonts.ready;
+seek(0);
+window.READY = true;
+</script>
+</body>
+</html>
